@@ -9,7 +9,6 @@ EinVault is a private, self-hosted companion health and care tracker built for h
 - [Features](#features)
 - [Screenshots](#screenshots)
 - [Production (Docker)](#production-docker)
-  - [Reverse proxy](#reverse-proxy)
   - [Other options](#other-options)
   - [Data and backup](#data-and-backup)
   - [Container hardening](#container-hardening)
@@ -81,73 +80,6 @@ docker compose -f docker-compose.prod.yml up -d
 
 Open your domain and follow the `/setup` prompt to create your admin account.
 
-### Reverse proxy
-
-The compose file defaults to `127.0.0.1:3000` for a proxy running on the host (Option A). If your proxy runs as a Docker container, switch to Option B — the comments in the compose file cover both.
-
-**Caddy (Option A):**
-
-```caddyfile
-einvault.yourdomain.com {
-    reverse_proxy 127.0.0.1:3000
-}
-```
-
-**Nginx (Option A):**
-
-```nginx
-server {
-    listen 443 ssl;
-    server_name einvault.yourdomain.com;
-
-    location / {
-        proxy_pass http://127.0.0.1:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-}
-```
-
-**Traefik static file provider (Option A):**
-
-```yaml
-# /etc/traefik/conf.d/einvault.yml
-http:
-  routers:
-    einvault:
-      rule: 'Host(`einvault.yourdomain.com`)'
-      entryPoints: [websecure]
-      tls:
-        certResolver: letsencrypt
-      service: einvault
-  services:
-    einvault:
-      loadBalancer:
-        servers:
-          - url: 'http://127.0.0.1:3000'
-```
-
-**Traefik Docker provider (Option B)** - add these labels to the `einvault` service in the compose file:
-
-```yaml
-labels:
-  - 'traefik.enable=true'
-  - 'traefik.http.routers.einvault.rule=Host(`einvault.yourdomain.com`)'
-  - 'traefik.http.routers.einvault.entrypoints=websecure'
-  - 'traefik.http.routers.einvault.tls.certresolver=letsencrypt'
-  - 'traefik.http.services.einvault.loadbalancer.server.port=3000'
-```
-
-**Caddy Docker provider (Option B):**
-
-```caddyfile
-einvault.yourdomain.com {
-    reverse_proxy einvault:3000
-}
-```
-
 ### Other options
 
 Everything else in the compose file can be edited directly:
@@ -164,13 +96,12 @@ Everything else in the compose file can be edited directly:
 
 ### Data and backup
 
-Data lives in `./data` next to the compose file. Back it up by copying the directory:
+Data lives in `./data` next to the compose file. Stop the container first so SQLite isn't mid-write, then copy the directory:
 
 ```bash
+docker compose -f docker-compose.prod.yml stop einvault
 cp -r ./data ./data.bak
-
-# Or use SQLite's online backup while the container is running
-docker exec einvault sqlite3 /data/einvault.db ".backup '/data/einvault.backup.db'"
+docker compose -f docker-compose.prod.yml start einvault
 ```
 
 ### Container hardening

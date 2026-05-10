@@ -11,16 +11,8 @@ services:
     container_name: einvault
     restart: unless-stopped
 
-    # Option A (default): host-level proxy (Nginx, Caddy, Traefik on the host)
     ports:
       - '127.0.0.1:3000:3000'
-
-    # Option B: Docker-network proxy (Traefik, Caddy running in Docker)
-    # Comment out ports above and uncomment below, then add your proxy labels/config.
-    # expose:
-    #   - "3000"
-    # networks:
-    #   - proxy
 
     volumes:
       - ./data:/data
@@ -68,8 +60,3 @@ services:
       timeout: 5s
       retries: 3
       start_period: 15s
-
-# Uncomment if using Option B
-# networks:
-#   proxy:
-#     external: true
