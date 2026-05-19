@@ -36,14 +36,27 @@ FROM ${NODE_IMAGE} AS runner
 
 WORKDIR /app
 
+# Strip npm, npx, corepack, and the bundled yarn from the runtime image. The
+# app starts with `node build` and never invokes a package manager at runtime;
+# keeping them adds attack surface and CVE noise (npm's transitives, etc.).
+RUN rm -rf \
+    /usr/local/lib/node_modules/npm \
+    /usr/local/lib/node_modules/corepack \
+    /usr/local/bin/npm \
+    /usr/local/bin/npx \
+    /usr/local/bin/corepack \
+    /usr/local/bin/yarn \
+    /usr/local/bin/yarnpkg \
+    /opt/yarn-*
+
 # Copy only what's needed to run
-# node:alpine ships a `node` user at 1000:1000 — reuse it rather than creating a duplicate
+# node:alpine ships a `node` user at 1000:1000, reuse it rather than creating a duplicate
 COPY --from=builder --chown=node:node /build/build ./build
 COPY --from=builder --chown=node:node /build/node_modules ./node_modules
 COPY --from=builder --chown=node:node /build/drizzle ./drizzle
 COPY --from=builder --chown=node:node /build/package.json ./
 
-# Data directory — will be mounted as a volume
+# Data directory, mounted as a volume in production
 RUN mkdir -p /data && chown node:node /data
 
 USER node
