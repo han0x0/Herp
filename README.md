@@ -94,6 +94,33 @@ Everything else in the compose file can be edited directly:
 | `./data` volume         | `./data`            | Where the database and uploads are stored on the host.                                                                            |
 | `DATABASE_URL`          | `/data/einvault.db` | Database path inside the container. Unlikely to need changing.                                                                    |
 
+### External image storage (optional)
+
+By default, avatars and journal photos are written to `./data/uploads`. You can instead route new uploads to an S3-compatible bucket (AWS S3, Garage, MinIO, Backblaze B2, Cloudflare R2). Existing photos remain on disk; only new writes go to S3.
+
+|                          | Default | Description                                                                                                                                                               |
+| ------------------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `STORAGE_BACKEND`        | `local` | `local` writes to `./data/uploads`. `s3` writes new uploads to the configured bucket. Reads always honor the per-row provider, so switching does not invalidate old rows. |
+| `S3_ENDPOINT`            | —       | Full endpoint URL, e.g. `https://s3.garage.example.com` or `https://s3.us-east-1.amazonaws.com`.                                                                          |
+| `S3_BUCKET`              | —       | Bucket name. Must already exist and should be private.                                                                                                                    |
+| `S3_REGION`              | `auto`  | Region. For non-AWS providers, `auto` usually works.                                                                                                                      |
+| `S3_ACCESS_KEY_ID`       | —       | Access key. Scope it to this bucket only.                                                                                                                                 |
+| `S3_SECRET_ACCESS_KEY`   | —       | Secret key.                                                                                                                                                               |
+| `S3_FORCE_PATH_STYLE`    | `false` | Set to `true` for Garage, MinIO, and older S3 deployments. Leave `false` for AWS and R2.                                                                                  |
+| `S3_PRESIGN_TTL_SECONDS` | `300`   | Lifetime of presigned download URLs. Shorter is stricter, longer improves browser cache reuse on reload.                                                                  |
+
+Downloads use short-lived presigned URLs (the app issues a 302 redirect). Access control is checked before the URL is issued; once issued, the URL stays valid for the full TTL even if permissions later change. Keep the TTL short.
+
+### Immich integration (optional)
+
+When `IMMICH_URL` and `IMMICH_API_KEY` are set, members and admins get a "Pick from Immich" option on the journal photo and companion avatar flows. The chosen asset stays in Immich; EinVault stores only a reference and proxies reads through the server using the API key. EinVault never uploads to Immich and never deletes assets from it. Caretakers cannot use the picker.
+
+|                   | Default | Description                                                                                                                                                                                  |
+| ----------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `IMMICH_URL`      | —       | Base URL of your Immich server, e.g. `http://immich.local:2283`. No trailing slash. Required if `IMMICH_API_KEY` is set.                                                                     |
+| `IMMICH_API_KEY`  | —       | API key. Required permissions: `asset.read`, `asset.view`, plus `album.read` if `IMMICH_ALBUM_ID` is set. Generate in Immich → Account Settings → API Keys. Required if `IMMICH_URL` is set. |
+| `IMMICH_ALBUM_ID` | —       | If set, the picker only shows assets in this album. If unset, the picker shows the user's most recent assets across the whole library.                                                       |
+
 ### Data and backup
 
 Data lives in `./data` next to the compose file. Stop the container first so SQLite isn't mid-write, then copy the directory:

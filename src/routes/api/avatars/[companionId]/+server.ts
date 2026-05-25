@@ -3,11 +3,7 @@ import type { RequestHandler } from './$types';
 import { t } from '$lib/i18n';
 import { db, schema } from '$lib/server/db';
 import { eq } from 'drizzle-orm';
-import { createReadStream } from 'fs';
-import { Readable } from 'stream';
-import { stat } from 'fs/promises';
-import { join, resolve } from 'path';
-import { DATA_DIR } from '$lib/server/paths';
+import { getStorage, type GetResult } from '$lib/server/storage';
 
 export const GET: RequestHandler = async ({ params, locals, request, url }) => {
 	if (!locals.user) error(401, t(locals.locale, 'error.unauthorized'));
@@ -17,42 +13,56 @@ export const GET: RequestHandler = async ({ params, locals, request, url }) => {
 	});
 	if (!companion?.avatarPath) error(404, t(locals.locale, 'error.noAvatar'));
 
-	const fullPath = join(DATA_DIR, 'uploads', 'avatars', companion.avatarPath);
+	const key = companion.avatarStorageKey ?? `avatars/${companion.avatarPath}`;
+	const ifNoneMatch = request.headers.get('if-none-match');
 
-	// Path traversal guard
-	const safeBase = resolve(join(DATA_DIR, 'uploads', 'avatars'));
-	if (!resolve(fullPath).startsWith(safeBase)) error(403, t(locals.locale, 'error.forbidden'));
-
-	let fileStat: Awaited<ReturnType<typeof stat>>;
+	let res: GetResult | null;
 	try {
-		fileStat = await stat(fullPath);
-	} catch {
-		error(404, t(locals.locale, 'error.fileNotFound'));
+		res = await getStorage(companion.avatarProvider).get(key, { ifNoneMatch });
+	} catch (err) {
+		if (err instanceof Error && err.message.includes('escapes upload root')) {
+			error(403, t(locals.locale, 'error.forbidden'));
+		}
+		console.error(`[avatars] storage error provider=${companion.avatarProvider} key=${key}:`, err);
+		error(502, t(locals.locale, 'error.fileNotFound'));
+	}
+	if (!res) error(404, t(locals.locale, 'error.fileNotFound'));
+
+	if (res.kind === 'notModified') {
+		return new Response(null, { status: 304, headers: { ETag: res.etag } });
 	}
 
-	const etag = `"${fileStat.mtimeMs.toString(36)}-${fileStat.size.toString(36)}"`;
-
-	// Return 304 if client already has this version
-	if (request.headers.get('if-none-match') === etag) {
-		return new Response(null, { status: 304 });
+	if (res.kind === 'redirect') {
+		return new Response(null, {
+			status: 302,
+			headers: {
+				Location: res.url,
+				'Cache-Control': `private, max-age=${res.cacheSeconds}`,
+				'Referrer-Policy': 'no-referrer'
+			}
+		});
 	}
 
 	const ext = companion.avatarPath.split('.').pop() ?? 'jpg';
 	const mimeType = ext === 'png' ? 'image/png' : ext === 'webp' ? 'image/webp' : 'image/jpeg';
 
-	// Cache indefinitely when URL has a cache-buster (?t=...), otherwise rely on ETag revalidation
 	const hasCacheBuster = url.searchParams.has('t');
-	const cacheControl = hasCacheBuster
-		? 'private, max-age=31536000, immutable'
-		: 'private, no-cache';
+	// Immich-backed avatars can regenerate previews server-side, so we don't
+	// mark them immutable even with a cache buster — fall back to revalidate.
+	const cacheControl =
+		companion.avatarProvider === 'immich'
+			? 'private, max-age=300'
+			: hasCacheBuster
+				? 'private, max-age=31536000, immutable'
+				: 'private, no-cache';
 
-	return new Response(Readable.toWeb(createReadStream(fullPath)) as ReadableStream, {
+	return new Response(res.stream, {
 		headers: {
 			'Content-Type': mimeType,
-			'Content-Length': String(fileStat.size),
+			'Content-Length': String(res.stat.size),
 			'Cache-Control': cacheControl,
-			ETag: etag,
-			'Last-Modified': fileStat.mtime.toUTCString(),
+			ETag: res.stat.etag,
+			'Last-Modified': res.stat.mtime.toUTCString(),
 			'X-Content-Type-Options': 'nosniff'
 		}
 	});
