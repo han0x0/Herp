@@ -6,7 +6,7 @@ import { eq, and, count } from 'drizzle-orm';
 import { generateId } from '$lib/server/utils';
 import { getImmichClient, immichKey, IMMICH_ASSET_ID_RE } from '$lib/server/storage';
 import { isAllowedPhotoMime, safeExtFromMime } from '$lib/server/storage/mime';
-import { MAX_DAILY_PHOTOS } from '$lib/server/env';
+import { MAX_DAILY_MEDIA } from '$lib/server/env';
 import { isValidDate } from '$lib/server/validation';
 
 export const POST: RequestHandler = async ({ request, params, locals }) => {
@@ -77,7 +77,7 @@ export const POST: RequestHandler = async ({ request, params, locals }) => {
 				.where(eq(schema.journalPhotos.entryId, entryId))
 				.all();
 			const photoCount = rows[0]?.value ?? 0;
-			if (photoCount >= MAX_DAILY_PHOTOS) {
+			if (photoCount >= MAX_DAILY_MEDIA) {
 				return { ok: false as const };
 			}
 			tx.insert(schema.journalPhotos)
@@ -88,6 +88,9 @@ export const POST: RequestHandler = async ({ request, params, locals }) => {
 					provider: 'immich',
 					storageKey: immichKey(assetId),
 					originalName: asset.originalFileName || null,
+					// Immich picker only surfaces images (videos are filtered out), so
+					// these are always photos.
+					mediaType: 'photo',
 					mimeType: asset.originalMimeType,
 					sizeBytes: asset.fileSizeInByte ?? 0,
 					loggedBy
@@ -99,7 +102,7 @@ export const POST: RequestHandler = async ({ request, params, locals }) => {
 	);
 
 	if (!result.ok) {
-		error(400, t(locals.locale, 'error.maxPhotosExceeded', { max: MAX_DAILY_PHOTOS }));
+		error(400, t(locals.locale, 'error.maxMediaExceeded', { max: MAX_DAILY_MEDIA }));
 	}
 
 	const created = await db.query.journalPhotos.findFirst({
