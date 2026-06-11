@@ -800,6 +800,15 @@ const messages: Record<keyof Messages, string> = {
 	'search.group.daily': 'Tagesprotokoll',
 	'search.group.weight': 'Gewicht',
 	'search.group.media': 'Fotos & Videos',
+	'search.filter.after': 'Nach',
+	'search.filter.before': 'Vor',
+	'search.filter.removeCompanion': '{name}-Filter entfernen',
+	'search.filter.removeType': '{type}-Filter entfernen',
+	'search.filter.removeAfter': 'Nach-Datum-Filter entfernen',
+	'search.filter.removeBefore': 'Vor-Datum-Filter entfernen',
+	'search.tipCompanion': 'nach Begleiter filtern',
+	'search.tipType': 'nach Typ filtern',
+	'aria.sigilAutocomplete': 'Filtervorschläge',
 
 	// Immich picker
 	'immich.picker.title': 'Aus Immich auswählen',

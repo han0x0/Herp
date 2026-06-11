@@ -792,6 +792,15 @@ const messages = {
 	'search.group.daily': 'Daily log',
 	'search.group.weight': 'Weight',
 	'search.group.media': 'Photos & videos',
+	'search.filter.after': 'After',
+	'search.filter.before': 'Before',
+	'search.filter.removeCompanion': 'Remove {name} filter',
+	'search.filter.removeType': 'Remove {type} filter',
+	'search.filter.removeAfter': 'Remove after date filter',
+	'search.filter.removeBefore': 'Remove before date filter',
+	'search.tipCompanion': 'filter by companion',
+	'search.tipType': 'filter by type',
+	'aria.sigilAutocomplete': 'Filter suggestions',
 
 	// Immich picker
 	'immich.picker.title': 'Pick from Immich',

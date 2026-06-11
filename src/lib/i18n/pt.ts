@@ -797,6 +797,15 @@ const messages: Record<keyof Messages, string> = {
 	'search.group.daily': 'Registo diário',
 	'search.group.weight': 'Peso',
 	'search.group.media': 'Fotos e vídeos',
+	'search.filter.after': 'Depois',
+	'search.filter.before': 'Antes',
+	'search.filter.removeCompanion': 'Remover filtro {name}',
+	'search.filter.removeType': 'Remover filtro {type}',
+	'search.filter.removeAfter': 'Remover filtro de data posterior',
+	'search.filter.removeBefore': 'Remover filtro de data anterior',
+	'search.tipCompanion': 'filtrar por companheiro',
+	'search.tipType': 'filtrar por tipo',
+	'aria.sigilAutocomplete': 'Sugestões de filtro',
 
 	// Immich picker
 	'immich.picker.title': 'Escolher do Immich',
