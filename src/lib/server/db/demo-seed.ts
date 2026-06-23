@@ -189,10 +189,19 @@ export function seedUsers(db: BetterSQLite3Database<typeof schema>): void {
  * weight entries, daily events, and reminders. All date-sensitive rows
  * are anchored to `now` so re-anchoring works cleanly.
  */
-export function seedContent(db: BetterSQLite3Database<typeof schema>, opts: { now: number }): void {
+export function seedContent(
+	db: BetterSQLite3Database<typeof schema>,
+	opts: { now: number; shiftEndHours?: number }
+): void {
 	const now = opts.now;
 	const day = 24 * 60 * 60 * 1000;
 	const hour = 60 * 60 * 1000;
+	// How far past `now` the active caretaker shift runs. Defaults to 8h: long
+	// enough for the on-shift experience, short enough that it won't overlap a
+	// shift a test adds for tomorrow. The demo refresh path passes a value that
+	// covers its 24h reseed interval so visitors never land on the off-shift
+	// experience between refreshes (issue #158).
+	const shiftEndHours = opts.shiftEndHours ?? 8;
 
 	const ein = SEED.companions.ein.id;
 	const edward = SEED.companions.edward.id;
@@ -212,7 +221,7 @@ export function seedContent(db: BetterSQLite3Database<typeof schema>, opts: { no
 			id: 'seed-shift-active',
 			userId: faye,
 			startAt: new Date(now - 1 * hour),
-			endAt: new Date(now + 8 * hour)
+			endAt: new Date(now + shiftEndHours * hour)
 		})
 		.run();
 
@@ -845,7 +854,9 @@ export function refreshDemoContent(db: SeedDb, demoMode: boolean, dataDir: strin
 		// companions cascade to: journalEntries -> journalPhotos, healthEvents,
 		// weightEntries, dailyEvents, reminders
 		tx.delete(schema.companions).run();
-		seedContent(tx as never, { now });
+		// Shift runs past the 24h reseed interval so the caretaker stays on-shift
+		// for the whole window between refreshes (issue #158).
+		seedContent(tx as never, { now, shiftEndHours: 25 });
 	});
 	copyDemoPhotoFiles(join(dataDir, 'uploads'), now);
 }
