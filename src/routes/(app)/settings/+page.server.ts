@@ -97,7 +97,7 @@ export const actions: Actions = {
 			.set({ theme: theme as 'light' | 'dark' | 'system' })
 			.where(eq(schema.users.id, locals.user.id));
 
-		cookies.set('einvault_theme', theme, {
+		cookies.set('herp_theme', theme, {
 			path: '/',
 			httpOnly: false,
 			secure: isSecureRequest(request),
@@ -122,7 +122,7 @@ export const actions: Actions = {
 			.set({ locale: locale as Locale })
 			.where(eq(schema.users.id, locals.user.id));
 
-		cookies.set('einvault_locale', locale, {
+		cookies.set('herp_locale', locale, {
 			path: '/',
 			httpOnly: false,
 			secure: isSecureRequest(request),

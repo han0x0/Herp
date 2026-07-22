@@ -119,7 +119,7 @@ describe('ensureDemoUsers', () => {
 describe('refreshDemoContent', () => {
 	// node:fs is mocked at the top of this file, so the dataDir arg is never
 	// written to; any path is safe.
-	const DATA_DIR = '/tmp/einvault-demo-test';
+	const DATA_DIR = '/tmp/herp-demo-test';
 
 	beforeEach(async () => {
 		await db.delete(schema.caretakerShifts);
@@ -167,8 +167,8 @@ describe('startDemoRefreshScheduler', () => {
 		// Just verify idempotency — don't wait for the 24h timer to fire
 		const { startDemoRefreshScheduler } = await import('$server/db/demo-seed');
 		expect(() => {
-			startDemoRefreshScheduler(db, true, '/tmp/einvault-demo-test');
-			startDemoRefreshScheduler(db, true, '/tmp/einvault-demo-test'); // second call is no-op
+			startDemoRefreshScheduler(db, true, '/tmp/herp-demo-test');
+			startDemoRefreshScheduler(db, true, '/tmp/herp-demo-test'); // second call is no-op
 		}).not.toThrow();
 	});
 });

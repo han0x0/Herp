@@ -204,7 +204,7 @@
 				<span class="font-display font-bold text-base text-foreground truncate">
 					{user
 						? t(locale, 'overview.greeting', { name: user.displayName.split(' ')[0] })
-						: 'EinVault'}
+						: 'Herp'}
 				</span>
 			</div>
 		{/if}

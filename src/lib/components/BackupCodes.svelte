@@ -22,7 +22,7 @@
 		const url = URL.createObjectURL(blob);
 		const a = document.createElement('a');
 		a.href = url;
-		a.download = 'einvault-backup-codes.txt';
+		a.download = 'herp-backup-codes.txt';
 		a.click();
 		URL.revokeObjectURL(url);
 	}

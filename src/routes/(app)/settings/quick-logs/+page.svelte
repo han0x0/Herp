@@ -10,7 +10,7 @@
 </script>
 
 <svelte:head>
-	<title>{t(locale, 'quickLogs.title')} | EinVault</title>
+	<title>{t(locale, 'quickLogs.title')} | Herp</title>
 </svelte:head>
 
 <div class="max-w-3xl mx-auto space-y-6">

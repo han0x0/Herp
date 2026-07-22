@@ -56,7 +56,7 @@ export function buildCalendar(items: CalendarItem[], tz: string, shiftLabel: str
 	const lines: string[] = [
 		'BEGIN:VCALENDAR',
 		'VERSION:2.0',
-		'PRODID:-//EinVault//Calendar//EN',
+		'PRODID:-//Herp//Calendar//EN',
 		'CALSCALE:GREGORIAN'
 	];
 

@@ -18,7 +18,7 @@ describe('buildCalendar', () => {
 	it('renders an all-day health event with next-day DTEND', () => {
 		const item: CalendarItem = {
 			kind: 'health',
-			uid: 'health-h1@einvault',
+			uid: 'health-h1@herp',
 			companionId: 'c1',
 			companionName: 'Biscuit',
 			title: 'Vet visit',
@@ -35,7 +35,7 @@ describe('buildCalendar', () => {
 	it('renders a recurring reminder with TZID and RRULE', () => {
 		const item: CalendarItem = {
 			kind: 'reminder',
-			uid: 'reminder-series-s1@einvault',
+			uid: 'reminder-series-s1@herp',
 			companionId: 'c1',
 			companionName: 'Biscuit',
 			title: 'Pill',
@@ -51,7 +51,7 @@ describe('buildCalendar', () => {
 	it('expands a clamped (rdate) series into one standalone VEVENT per occurrence', () => {
 		const item: CalendarItem = {
 			kind: 'reminder',
-			uid: 'reminder-series-s2@einvault',
+			uid: 'reminder-series-s2@herp',
 			companionId: 'c1',
 			companionName: 'Biscuit',
 			title: 'Dose',
@@ -70,9 +70,9 @@ describe('buildCalendar', () => {
 		// No RDATE/RRULE: each occurrence is its own VEVENT with a distinct, stable UID.
 		expect(ics).not.toContain('RDATE');
 		expect((ics.match(/BEGIN:VEVENT/g) ?? []).length).toBe(3);
-		expect(ics).toContain('UID:reminder-series-s2-0@einvault');
-		expect(ics).toContain('UID:reminder-series-s2-1@einvault');
-		expect(ics).toContain('UID:reminder-series-s2-2@einvault');
+		expect(ics).toContain('UID:reminder-series-s2-0@herp');
+		expect(ics).toContain('UID:reminder-series-s2-1@herp');
+		expect(ics).toContain('UID:reminder-series-s2-2@herp');
 		expect(ics).toContain('DTSTART;TZID=America/New_York:20260131T090000');
 		expect(ics).toContain('DTSTART;TZID=America/New_York:20260228T090000');
 		expect(ics).toContain('DTSTART;TZID=America/New_York:20260331T090000');
@@ -81,7 +81,7 @@ describe('buildCalendar', () => {
 	it('escapes commas in companion name in CATEGORIES and SUMMARY', () => {
 		const item: CalendarItem = {
 			kind: 'health',
-			uid: 'health-h2@einvault',
+			uid: 'health-h2@herp',
 			companionId: 'c2',
 			companionName: 'Rex, Jr',
 			title: 'Checkup',
@@ -102,7 +102,7 @@ describe('buildCalendar', () => {
 	it('uses the shift label for shift summaries', () => {
 		const item: CalendarItem = {
 			kind: 'shift',
-			uid: 'shift-s1@einvault',
+			uid: 'shift-s1@herp',
 			companionId: null,
 			companionName: null,
 			title: '',

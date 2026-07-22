@@ -78,7 +78,7 @@ export async function getCalendarItems(
 			if (lower && h.occurredAt < lower) continue;
 			items.push({
 				kind: 'health',
-				uid: `health-${h.id}@einvault`,
+				uid: `health-${h.id}@herp`,
 				companionId: h.companionId,
 				companionName: nameById.get(h.companionId) ?? null,
 				title: h.title,
@@ -102,7 +102,7 @@ export async function getCalendarItems(
 					seriesAnchored.add(seriesKey);
 					items.push({
 						kind: 'reminder',
-						uid: `reminder-series-${seriesKey}@einvault`,
+						uid: `reminder-series-${seriesKey}@herp`,
 						companionId: r.companionId,
 						companionName,
 						title: r.title,
@@ -114,7 +114,7 @@ export async function getCalendarItems(
 					if (lower && r.dueAt < lower) continue;
 					items.push({
 						kind: 'reminder',
-						uid: `reminder-${r.id}@einvault`,
+						uid: `reminder-${r.id}@herp`,
 						companionId: r.companionId,
 						companionName,
 						title: r.title,
@@ -126,7 +126,7 @@ export async function getCalendarItems(
 				if (lower && r.dueAt < lower) continue;
 				items.push({
 					kind: 'reminder',
-					uid: `reminder-${r.id}@einvault`,
+					uid: `reminder-${r.id}@herp`,
 					companionId: r.companionId,
 					companionName,
 					title: r.title,
@@ -142,7 +142,7 @@ export async function getCalendarItems(
 		for (const s of shifts) {
 			items.push({
 				kind: 'shift',
-				uid: `shift-${s.id}@einvault`,
+				uid: `shift-${s.id}@herp`,
 				companionId: null,
 				companionName: null,
 				title: '',

@@ -16,7 +16,7 @@
 </script>
 
 <svelte:head>
-	<title>{t(locale, 'page.reset.title')} | EinVault</title>
+	<title>{t(locale, 'page.reset.title')} | Herp</title>
 </svelte:head>
 
 <AuthBackdrop linkLabel={t(locale, 'aria.goToSignIn')}>

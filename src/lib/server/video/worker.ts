@@ -37,7 +37,7 @@ const MAX_ATTEMPTS = 3;
 
 // Prefix for per-job temp directories under VIDEO_TRANSCODE.tmpDir. Used both to
 // create job dirs and to identify orphans to purge on boot.
-const TMP_PREFIX = 'einvault-';
+const TMP_PREFIX = 'herp-';
 
 // Only one loop runs at a time in this process. kick() is a no-op while a drain
 // is already in flight; the in-flight loop picks up anything newly enqueued.

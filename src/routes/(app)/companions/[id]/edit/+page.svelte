@@ -69,7 +69,7 @@
 </script>
 
 <svelte:head>
-	<title>{t(locale, 'page.companion.edit.pageTitle', { name: companion.name })} | EinVault</title>
+	<title>{t(locale, 'page.companion.edit.pageTitle', { name: companion.name })} | Herp</title>
 </svelte:head>
 
 <div class="max-w-3xl mx-auto space-y-6">
@@ -188,6 +188,16 @@
 						required
 					/>
 				</div>
+				<div class="space-y-1.5">
+					<Label for="species">{t(locale, 'page.companion.labelSpecies')}</Label>
+					<Select id="species" name="species">
+						<option value="dog" selected={companion.species === 'dog'}>{t(locale, 'enum.species.dog')}</option>
+						<option value="cat" selected={companion.species === 'cat'}>{t(locale, 'enum.species.cat')}</option>
+						<option value="mouse" selected={companion.species === 'mouse'}>{t(locale, 'enum.species.mouse')}</option>
+						<option value="reptile" selected={companion.species === 'reptile'}>{t(locale, 'enum.species.reptile')}</option>
+					</Select>
+				</div>
+
 
 				<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 					<div class="space-y-1.5">

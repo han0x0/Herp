@@ -253,3 +253,13 @@ const SEXES = ['male', 'female', 'unknown'] as const satisfies readonly Sex[];
 export function parseSex(value: string): Sex | null {
 	return parseEnum(value, SEXES);
 }
+
+
+// Species
+
+export type Species = 'dog' | 'cat' | 'mouse' | 'reptile';
+const SPECIES = ['dog', 'cat', 'mouse', 'reptile'] as const satisfies readonly Species[];
+
+export function parseSpecies(value: string | null | undefined): Species {
+	return parseEnum(value ?? '', SPECIES) ?? 'dog';
+}

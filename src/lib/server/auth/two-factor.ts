@@ -15,7 +15,7 @@ export function requiresTwoFactor(
 
 // --- Pending-MFA signed cookie (HMAC, mirrors oidc-state.ts) ---
 
-const COOKIE_NAME = 'einvault_mfa_pending';
+const COOKIE_NAME = 'herp_mfa_pending';
 const TTL_MS = 5 * 60 * 1000;
 
 function b64url(bytes: Uint8Array): string {
@@ -43,7 +43,7 @@ function getKey(): Promise<CryptoKey> {
 		const keyBytes = Buffer.from(raw, 'base64');
 		const labeled = new Uint8Array([
 			...keyBytes,
-			...new TextEncoder().encode('einvault-mfa-cookie-v1')
+			...new TextEncoder().encode('herp-mfa-cookie-v1')
 		]);
 		const material = await crypto.subtle.digest('SHA-256', labeled);
 		return crypto.subtle.importKey('raw', material, { name: 'HMAC', hash: 'SHA-256' }, false, [

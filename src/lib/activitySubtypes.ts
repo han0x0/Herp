@@ -8,7 +8,8 @@ export const ACTIVITY_SUBTYPES = {
 	meal: ['breakfast', 'lunch', 'dinner', 'snack'],
 	play: ['fetch', 'tug', 'puzzle', 'social'],
 	grooming: ['bath', 'brush', 'trim', 'nails', 'teeth', 'ears'],
-	treat: ['chew', 'dental', 'training']
+	treat: ['chew', 'dental', 'training'],
+	reptileCare: ['shed', 'temp_humidity', 'refused_food', 'soak', 'brumation']
 } as const;
 
 export type SubtypedActivityType = keyof typeof ACTIVITY_SUBTYPES;

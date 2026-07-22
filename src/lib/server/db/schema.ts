@@ -170,7 +170,7 @@ export const companions = sqliteTable(
 	{
 		id: text('id').primaryKey(),
 		name: text('name').notNull(),
-		species: text('species', { enum: ['dog'] })
+		species: text('species', { enum: ['dog', 'cat', 'mouse', 'reptile'] })
 			.notNull()
 			.default('dog'),
 		breed: text('breed'),

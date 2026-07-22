@@ -32,9 +32,9 @@ export const load: LayoutServerLoad = async ({ locals, url, cookies }) => {
 		redirect(302, '/');
 	}
 
-	const demoNotice = DEMO_MODE && cookies.get('einvault_demo_notice') === '1';
+	const demoNotice = DEMO_MODE && cookies.get('herp_demo_notice') === '1';
 	if (demoNotice) {
-		cookies.delete('einvault_demo_notice', { path: '/' });
+		cookies.delete('herp_demo_notice', { path: '/' });
 	}
 
 	return {
@@ -46,7 +46,7 @@ export const load: LayoutServerLoad = async ({ locals, url, cookies }) => {
 		version: DEMO_MODE ? undefined : version,
 		year: new Date().getFullYear(),
 		reminderUndoSeconds: resolveReminderUndoSeconds(locals.user?.reminderUndoSeconds ?? null),
-		// Caretakers don't get the picker — the underlying endpoints reject them.
+		// Caretakers don't get the picker 鈥?the underlying endpoints reject them.
 		immichEnabled: isImmichEnabled() && locals.user?.role !== 'caretaker',
 		paperlessEnabled: isPaperlessEnabled() && locals.user?.role !== 'caretaker',
 		demoMode: DEMO_MODE,

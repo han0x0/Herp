@@ -1,7 +1,7 @@
 import type { Cookies } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
 
-const COOKIE_NAME = 'einvault_oidc_state';
+const COOKIE_NAME = 'herp_oidc_state';
 const COOKIE_PATH = '/auth/oidc';
 
 export interface OidcStatePayload {

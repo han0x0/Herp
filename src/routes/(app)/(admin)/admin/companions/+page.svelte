@@ -30,7 +30,7 @@
 </script>
 
 <svelte:head>
-	<title>{t(locale, 'page.admin.companionsTitle')} | EinVault</title>
+	<title>{t(locale, 'page.admin.companionsTitle')} | Herp</title>
 </svelte:head>
 
 <div class="max-w-3xl mx-auto space-y-6">

@@ -132,7 +132,7 @@
 	<!-- Brand -->
 	<a
 		href="/"
-		aria-label={t(locale, 'aria.einvaultHome')}
+		aria-label={t(locale, 'aria.herpHome')}
 		class="group flex items-center gap-2.5 px-4 py-5 shrink-0"
 	>
 		<div
@@ -142,7 +142,7 @@
 		>
 			<PawLogo class="w-4 h-4 text-white" />
 		</div>
-		<span class="font-display font-bold text-base text-foreground">EinVault</span>
+		<span class="font-display font-bold text-base text-foreground">Herp</span>
 	</a>
 
 	<!-- Context control -->

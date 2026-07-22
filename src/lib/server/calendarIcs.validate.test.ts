@@ -43,7 +43,7 @@ describe('buildCalendar — real-parser validation', () => {
 	it('renders an all-day health event the parser reads as a full-day date event', () => {
 		const item: CalendarItem = {
 			kind: 'health',
-			uid: 'health-h1@einvault',
+			uid: 'health-h1@herp',
 			companionId: 'c1',
 			companionName: 'Biscuit',
 			title: 'Vet visit',
@@ -63,7 +63,7 @@ describe('buildCalendar — real-parser validation', () => {
 		// 13:00Z on 2026-06-15 is 09:00 in New York (EDT). Monthly on the 15th.
 		const item: CalendarItem = {
 			kind: 'reminder',
-			uid: 'reminder-series-s1@einvault',
+			uid: 'reminder-series-s1@herp',
 			companionId: 'c1',
 			companionName: 'Biscuit',
 			title: 'Heartworm pill',
@@ -101,7 +101,7 @@ describe('buildCalendar — real-parser validation', () => {
 		];
 		const item: CalendarItem = {
 			kind: 'reminder',
-			uid: 'reminder-series-s2@einvault',
+			uid: 'reminder-series-s2@herp',
 			companionId: 'c1',
 			companionName: 'Biscuit',
 			title: 'Monthly dose',
@@ -114,9 +114,9 @@ describe('buildCalendar — real-parser validation', () => {
 		// One standalone VEVENT per occurrence, distinct UIDs, none recurring.
 		expect(events).toHaveLength(3);
 		expect(events.map((e) => e.uid)).toEqual([
-			'reminder-series-s2-0@einvault',
-			'reminder-series-s2-1@einvault',
-			'reminder-series-s2-2@einvault'
+			'reminder-series-s2-0@herp',
+			'reminder-series-s2-1@herp',
+			'reminder-series-s2-2@herp'
 		]);
 		expect(events.some((e) => e.isRecurring())).toBe(false);
 		// Correct absolute instants and 09:00 local wall-clock for each.
@@ -131,7 +131,7 @@ describe('buildCalendar — real-parser validation', () => {
 	it('round-trips special characters and long lines without corruption', () => {
 		const item: CalendarItem = {
 			kind: 'reminder',
-			uid: 'reminder-r9@einvault',
+			uid: 'reminder-r9@herp',
 			companionId: 'c1',
 			companionName: 'Rex, Jr',
 			title: 'Give the very long-named medication '.repeat(4).trim(),
@@ -151,7 +151,7 @@ describe('buildCalendar — real-parser validation', () => {
 	it('labels caretaker shifts and resolves their TZID start/end', () => {
 		const item: CalendarItem = {
 			kind: 'shift',
-			uid: 'shift-s1@einvault',
+			uid: 'shift-s1@herp',
 			companionId: null,
 			companionName: null,
 			title: '',

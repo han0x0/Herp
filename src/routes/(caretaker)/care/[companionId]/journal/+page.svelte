@@ -231,7 +231,7 @@
 </script>
 
 <svelte:head>
-	<title>{t(locale, 'page.journal.title')} | {data.companion.name} | EinVault</title>
+	<title>{t(locale, 'page.journal.title')} | {data.companion.name} | Herp</title>
 </svelte:head>
 
 <div class="space-y-5">

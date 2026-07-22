@@ -1,4 +1,4 @@
-// Mime types EinVault will accept for journal photos and avatars.
+// Mime types Herp will accept for journal photos and avatars.
 // Conservative on purpose: SVG and ICO can carry active content; HEIC may
 // require sharp's libheif which is not always present.
 export const ALLOWED_PHOTO_MIME = [

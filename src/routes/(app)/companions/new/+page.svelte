@@ -71,6 +71,16 @@
 					required
 				/>
 			</div>
+			<div class="space-y-1.5">
+				<Label for="species">{t(locale, 'page.companion.labelSpecies')}</Label>
+				<Select id="species" name="species">
+					<option value="dog" selected>{t(locale, 'enum.species.dog')}</option>
+					<option value="cat">{t(locale, 'enum.species.cat')}</option>
+					<option value="mouse">{t(locale, 'enum.species.mouse')}</option>
+					<option value="reptile">{t(locale, 'enum.species.reptile')}</option>
+				</Select>
+			</div>
+
 
 			<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 				<div class="space-y-1.5">

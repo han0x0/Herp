@@ -20,17 +20,17 @@ export function applyTheme(t: string): void {
 	}
 }
 
-export const THEME_COOKIE = 'einvault_theme';
+export const THEME_COOKIE = 'herp_theme';
 
 /** Reads the persisted theme cookie (used in demo mode, where the seed account's
  *  stored theme is frozen and the per-visitor choice lives in this cookie). */
 export function readThemeCookie(): Theme | null {
 	if (!browser) return null;
-	const m = document.cookie.match(/(?:^|;\s*)einvault_theme=(light|dark|system)/);
+	const m = document.cookie.match(/(?:^|;\s*)herp_theme=(light|dark|system)/);
 	return (m?.[1] as Theme) ?? null;
 }
 
-/** Writes the theme cookie (1y, SameSite=Strict) — mirrors the server's attributes. */
+/** Writes the theme cookie (1y, SameSite=Strict) 鈥?mirrors the server's attributes. */
 export function writeThemeCookie(t: Theme): void {
 	if (!browser) return;
 	document.cookie = `${THEME_COOKIE}=${t};path=/;max-age=31536000;SameSite=Strict`;
@@ -40,5 +40,5 @@ export async function saveTheme(t: Theme, settingsPath = '/settings'): Promise<v
 	const fd = new FormData();
 	fd.set('theme', t);
 	const res = await fetch(`${settingsPath}?/theme`, { method: 'POST', body: fd });
-	if (!res.ok) console.error(`[einvault] Failed to save theme: ${res.status}`);
+	if (!res.ok) console.error(`[herp] Failed to save theme: ${res.status}`);
 }

@@ -14,13 +14,13 @@
 
 	function changeLocale(e: Event) {
 		const value = (e.currentTarget as HTMLSelectElement).value;
-		document.cookie = `einvault_locale=${value};path=/;max-age=31536000;SameSite=Lax`;
+		document.cookie = `herp_locale=${value};path=/;max-age=31536000;SameSite=Lax`;
 		window.location.reload();
 	}
 </script>
 
 <svelte:head>
-	<title>{t(locale, 'page.login.title')} | EinVault</title>
+	<title>{t(locale, 'page.login.title')} | Herp</title>
 </svelte:head>
 
 <div class="min-h-screen flex items-center justify-center bg-background p-4 md:p-0">

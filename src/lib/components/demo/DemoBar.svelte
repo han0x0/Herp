@@ -47,7 +47,7 @@
 			</select>
 		</form>
 		<a
-			href="https://github.com/davefatkin/EinVault"
+			href="https://github.com/davefatkin/Herp"
 			class="underline"
 			target="_blank"
 			rel="noopener">{t(locale, 'demo.sourceLink')}</a

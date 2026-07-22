@@ -1,14 +1,14 @@
-# EinVault — Production
-# https://github.com/davefatkin/einvault
+﻿# herp 鈥?Production
+# https://github.com/han0x0/herp
 #
 # 1. Edit ORIGIN below to match your domain
 # 2. mkdir -p ./data
 # 3. docker compose -f docker-compose.prod.yml up -d
 
 services:
-  einvault:
-    image: ghcr.io/davefatkin/einvault:latest
-    container_name: einvault
+  herp:
+    image: ghcr.io/han0x0/herp:latest
+    container_name: herp
     restart: unless-stopped
 
     ports:
@@ -20,12 +20,12 @@ services:
     user: '1000:1000'
 
     environment:
-      # Your public URL — must match the address you access EinVault from.
+      # Your public URL 鈥?must match the address you access herp from.
       # Used for CSRF protection; the app will reject form submissions without it.
-      ORIGIN: https://einvault.yourdomain.com
+      ORIGIN: https://herp.yourdomain.com
 
       NODE_ENV: production
-      DATABASE_URL: /data/einvault.db
+      DATABASE_URL: /data/herp.db
       # Maximum image upload size in MB. BODY_SIZE_LIMIT is derived automatically.
       UPLOAD_MAX_MB: 10
       # Maximum journal video upload size in MB (stored as-is, no transcoding).
@@ -41,7 +41,7 @@ services:
       # Optional: server-side video transcoding (off by default).
       # Set VIDEO_TRANSCODE=true to transcode uploaded videos to H.264/AAC MP4
       # (+ poster) in the background so they play in every browser. ffmpeg ships
-      # in the image. Transcoding is CPU-intensive — note the cpus limit below;
+      # in the image. Transcoding is CPU-intensive 鈥?note the cpus limit below;
       # raise it if you enable this and process large clips. Scratch files are
       # written under /data (disk), never the 64 MB /tmp tmpfs.
       # VIDEO_TRANSCODE: 'true'
@@ -67,7 +67,7 @@ services:
       # Downloads use short-lived presigned URLs (302 redirect from the app).
       # STORAGE_BACKEND: s3
       # S3_ENDPOINT: https://s3.garage.example.com
-      # S3_BUCKET: einvault
+      # S3_BUCKET: herp
       # S3_REGION: auto
       # S3_ACCESS_KEY_ID:
       # S3_SECRET_ACCESS_KEY:
@@ -78,7 +78,7 @@ services:
 
       # Optional: Immich integration (reference mode)
       # When set, users can attach existing Immich assets to journal entries
-      # and avatars. EinVault stores a reference and proxies reads through
+      # and avatars. herp stores a reference and proxies reads through
       # the API key; it never uploads or deletes from Immich.
       # IMMICH_URL: http://immich.local:2283
       # IMMICH_API_KEY:
@@ -87,7 +87,7 @@ services:
 
       # Optional: Paperless-ngx document import (reference mode)
       # When set, members and admins can attach Paperless documents to a
-      # companion. EinVault stores a reference and proxies reads through the
+      # companion. herp stores a reference and proxies reads through the
       # token; it never uploads or deletes from Paperless. Both URL and token
       # must be set together.
       # PAPERLESS_URL: http://paperless.local:8000
@@ -106,7 +106,7 @@ services:
       # Leave unset for unauthenticated LAN relays.
       # SMTP_USER:
       # SMTP_PASS:
-      # SMTP_FROM: 'EinVault <einvault@example.com>'
+      # SMTP_FROM: 'herp <herp@example.com>'
 
       # Optional: ntfy push notifications
       # Configures the ntfy server only; each user sets their own topic under

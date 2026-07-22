@@ -18,7 +18,7 @@
 			>
 				<PawLogo class="h-5 w-5 text-white" />
 			</div>
-			<span class="font-display text-xl font-extrabold tracking-tight text-white">EinVault</span>
+			<span class="font-display text-xl font-extrabold tracking-tight text-white">Herp</span>
 		</a>
 		{@render children()}
 	</div>

@@ -15,20 +15,20 @@ function resolveDbPath(): string {
 			return envPath;
 		} catch {
 			console.warn(
-				`[einvault] Cannot create directory for DATABASE_URL="${envPath}", falling back to local dev path.`
+				`[herp] Cannot create directory for DATABASE_URL="${envPath}", falling back to local dev path.`
 			);
 		}
 	}
 
-	const localPath = resolve('./data/einvault.db');
+	const localPath = resolve('./data/herp.db');
 	mkdirSync(dirname(localPath), { recursive: true });
 	return localPath;
 }
 
 const DATABASE_URL = resolveDbPath();
 if (process.env.NODE_ENV !== 'production') {
-	console.info(`[einvault] Database: ${DATABASE_URL}`);
-	console.info('[einvault] For Tippy and Molly 🐾 and Ein who keeps watch');
+	console.info(`[herp] Database: ${DATABASE_URL}`);
+	console.info('[herp] For Tippy and Molly 🐾 and Ein who keeps watch');
 }
 
 const sqlite = new Database(DATABASE_URL);
@@ -44,7 +44,7 @@ const MIGRATIONS_DIR = './drizzle';
 if (existsSync(MIGRATIONS_DIR)) {
 	migrate(db, { migrationsFolder: MIGRATIONS_DIR });
 } else {
-	console.warn('[einvault] No migrations found: run `npm run db:generate` then restart.');
+	console.warn('[herp] No migrations found: run `npm run db:generate` then restart.');
 }
 
 export { schema };

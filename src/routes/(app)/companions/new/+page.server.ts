@@ -3,7 +3,7 @@ import type { Actions, PageServerLoad } from './$types';
 import { t } from '$lib/i18n';
 import { db, schema } from '$lib/server/db';
 import { generateId } from '$lib/server/utils';
-import { parseSex, parseWeightUnit } from '$lib/server/validation';
+import { parseSex, parseSpecies, parseWeightUnit } from '$lib/server/validation';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	if (!locals.user) redirect(302, '/auth/login');
@@ -23,17 +23,19 @@ export const actions: Actions = {
 		const weightUnit = parseWeightUnit(String(data.get('weightUnit') ?? ''));
 		const microchip = String(data.get('microchip') ?? '').trim() || null;
 		const bio = String(data.get('bio') ?? '').trim() || null;
+		const species = parseSpecies(String(data.get('species') ?? ''));
 
 		if (!name) {
 			return fail(400, {
-				error: t(locals.locale, 'error.nameRequired'),
-				name,
-				breed,
-				sex,
-				dob,
-				microchip,
-				bio
-			});
+			error: t(locals.locale, 'error.nameRequired'),
+			name,
+			breed,
+			species,
+			sex,
+			dob,
+			microchip,
+			bio
+		});
 		}
 
 		const id = generateId(15);
@@ -42,6 +44,7 @@ export const actions: Actions = {
 			id,
 			name,
 			breed,
+			species,
 			sex,
 			dob,
 			weightUnit,

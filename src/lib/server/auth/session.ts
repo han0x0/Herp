@@ -63,7 +63,7 @@ export async function validateSessionToken(token: string) {
 
 	if (Math.random() < 0.01) {
 		cleanupExpiredSessions().catch((err) =>
-			console.error('[einvault] session cleanup failed:', err)
+			console.error('[herp] session cleanup failed:', err)
 		);
 	}
 
@@ -82,7 +82,7 @@ export async function invalidateAllUserSessions(userId: string) {
 	await db.delete(schema.sessions).where(eq(schema.sessions.userId, userId));
 }
 
-export const SESSION_COOKIE_NAME = 'einvault_session';
+export const SESSION_COOKIE_NAME = 'herp_session';
 
 export function makeSessionCookieOptions(expiresAt: Date, secure: boolean) {
 	return { httpOnly: true, sameSite: 'strict' as const, secure, expires: expiresAt, path: '/' };

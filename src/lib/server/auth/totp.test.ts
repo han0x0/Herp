@@ -19,7 +19,7 @@ describe('totp', () => {
 	it('generates a Base32 secret and a provisioning URI', () => {
 		const s = generateSecret();
 		expect(s).toMatch(/^[A-Z2-7]+$/);
-		expect(provisioningUri(s, 'jet')).toMatch(/^otpauth:\/\/totp\/EinVault:jet\?/);
+		expect(provisioningUri(s, 'jet')).toMatch(/^otpauth:\/\/totp\/Herp:jet\?/);
 	});
 
 	it('verifies a current code and rejects a wrong one', () => {

@@ -68,7 +68,7 @@ export function createImmichBackend(config: ImmichConfig): StorageBackend {
 		async get(key: string): Promise<GetResult | null> {
 			const assetId = parseKey(key);
 			// Serve Immich's 'preview' derivative rather than the original.
-			// Preview is typically ~1920px and quality-matches the cap EinVault
+			// Preview is typically ~1920px and quality-matches the cap Herp
 			// applies to local/S3 uploads. Avoids streaming multi-MB originals
 			// for in-app journal views.
 			const res = await fetchAsset(assetId, 'preview');
@@ -91,7 +91,7 @@ export function createImmichBackend(config: ImmichConfig): StorageBackend {
 		},
 
 		async delete() {
-			// Intentional no-op. EinVault stores a reference to an Immich asset;
+			// Intentional no-op. Herp stores a reference to an Immich asset;
 			// removing the reference must not delete the user's photo from
 			// their Immich library.
 		}

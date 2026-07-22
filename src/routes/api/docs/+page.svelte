@@ -210,7 +210,7 @@
 	}
 </script>
 
-<svelte:head><title>EinVault API reference</title></svelte:head>
+<svelte:head><title>Herp API reference</title></svelte:head>
 
 {#snippet schemaTable(schema: Schema)}
 	{@const s = resolve(schema)}

@@ -249,7 +249,7 @@
 </script>
 
 <svelte:head>
-	<title>{t(locale, 'page.reminders.title')} | {data.companion.name} | EinVault</title>
+	<title>{t(locale, 'page.reminders.title')} | {data.companion.name} | Herp</title>
 </svelte:head>
 
 <svelte:window onkeydown={handleWindowKey} />

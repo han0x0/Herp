@@ -249,7 +249,7 @@
 <svelte:window onkeydown={handleWindowKey} />
 
 <svelte:head>
-	<title>{companion.name} | EinVault</title>
+	<title>{companion.name} | Herp</title>
 </svelte:head>
 
 <!-- Avatar lightbox -->

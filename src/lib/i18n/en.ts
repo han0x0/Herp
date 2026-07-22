@@ -45,6 +45,7 @@ const messages = {
 	'enum.activityType.play': 'Play',
 	'enum.activityType.grooming': 'Grooming',
 	'enum.activityType.other': 'Other',
+	'enum.activityType.reptileCare': 'Reptile Care',
 
 	// Enum: Activity subtypes
 	'enum.activitySubtype.pee': 'Pee',
@@ -69,6 +70,11 @@ const messages = {
 	'enum.activitySubtype.chew': 'Chew',
 	'enum.activitySubtype.dental': 'Dental',
 	'enum.activitySubtype.training': 'Training',
+	'enum.activitySubtype.shed': 'Shed',
+	'enum.activitySubtype.temp_humidity': 'Temp / Humidity',
+	'enum.activitySubtype.refused_food': 'Refused food',
+	'enum.activitySubtype.soak': 'Soak',
+	'enum.activitySubtype.brumation': 'Brumation',
 
 	// Enum: Reminder types
 	'enum.reminderType.vet': 'Vet',
@@ -86,6 +92,12 @@ const messages = {
 	'enum.sex.male': 'Male',
 	'enum.sex.female': 'Female',
 	'enum.sex.unknown': 'Unknown',
+
+	// Enum: Species
+	'enum.species.dog': 'Dog',
+	'enum.species.cat': 'Cat',
+	'enum.species.mouse': 'Mouse',
+	'enum.species.reptile': 'Reptile',
 
 	// Errors: Auth & setup
 	'error.unauthorized': 'Unauthorized.',
@@ -452,6 +464,7 @@ const messages = {
 
 	// Page: companion (shared form labels / placeholders)
 	'page.companion.labelName': 'Name',
+	'page.companion.labelSpecies': 'Species',
 	'page.companion.labelBreed': 'Breed',
 	'page.companion.labelSex': 'Sex',
 	'page.companion.labelDob': 'Date of birth',

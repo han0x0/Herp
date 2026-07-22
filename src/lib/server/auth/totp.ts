@@ -1,7 +1,7 @@
 import { TOTP, Secret } from 'otpauth';
 import { createHash, randomBytes } from 'node:crypto';
 
-const ISSUER = 'EinVault';
+const ISSUER = 'Herp';
 const PERIOD = 30;
 const DIGITS = 6;
 

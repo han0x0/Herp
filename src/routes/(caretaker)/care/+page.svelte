@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-	<title>{t(locale, 'page.care.title')} | EinVault</title>
+	<title>{t(locale, 'page.care.title')} | Herp</title>
 </svelte:head>
 
 <div class="py-20">

@@ -5,12 +5,13 @@ import de from './de';
 import es from './es';
 import fr from './fr';
 import pt from './pt';
+import zh from './zh';
 import type { MessageKey } from './en';
 
 export type { MessageKey };
-export type Locale = 'en' | 'it' | 'de' | 'es' | 'fr' | 'pt';
+export type Locale = 'en' | 'it' | 'de' | 'es' | 'fr' | 'pt' | 'zh';
 
-export const SUPPORTED_LOCALES: Locale[] = ['de', 'en', 'es', 'fr', 'it', 'pt'];
+export const SUPPORTED_LOCALES: Locale[] = ['de', 'en', 'es', 'fr', 'it', 'pt', 'zh'];
 export const DEFAULT_LOCALE: Locale = 'en';
 export const LOCALE_LABELS: Record<Locale, string> = {
 	en: 'English',
@@ -18,12 +19,14 @@ export const LOCALE_LABELS: Record<Locale, string> = {
 	de: 'Deutsch',
 	es: 'Español',
 	fr: 'Français',
-	pt: 'Português'
+	pt: 'Português',
+	zh: '中文'
 };
 
 const catalogs: Record<Locale, Record<string, string>> = {
 	en,
 	it,
+	zh,
 	de,
 	es,
 	fr,

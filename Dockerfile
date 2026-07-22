@@ -1,8 +1,8 @@
-# syntax=docker/dockerfile:1.7
+﻿# syntax=docker/dockerfile:1.7
 
 # The node base image is pinned by digest and repeated in every FROM line
 # (instead of a single ARG) so Dependabot's docker ecosystem can see and bump
-# it — it does not reliably update ARG-indirected references. Dependabot
+# it 鈥?it does not reliably update ARG-indirected references. Dependabot
 # updates all four lines together in one PR; keep them identical.
 
 # pkgmeta: zero out the version field so version-bump commits don't invalidate
@@ -97,13 +97,13 @@ RUN mkdir -p /data && chown node:node /data
 
 USER node
 
-# Expose (internal only — reverse proxy maps the external port)
+# Expose (internal only 鈥?reverse proxy maps the external port)
 EXPOSE 3000
 
 ENV NODE_ENV=production
 ENV HOST=0.0.0.0
 ENV PORT=3000
-ENV DATABASE_URL=/data/einvault.db
+ENV DATABASE_URL=/data/herp.db
 ENV UPLOAD_MAX_MB=10
 ENV VIDEO_MAX_MB=100
 ENV MAX_DAILY_MEDIA=5

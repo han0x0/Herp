@@ -19,6 +19,7 @@ export const ACTIVITY_ICONS: Record<string, string> = {
 	treat: '🦴',
 	play: '🎾',
 	grooming: '🛁',
+	reptileCare: '🦎',
 	other: '📝'
 };
 
@@ -52,7 +53,12 @@ export const ACTIVITY_SUBTYPE_ICONS: Record<string, string> = {
 	ears: '👂',
 	chew: '🦴',
 	dental: '🪥',
-	training: '🎓'
+	training: '🎓',
+	shed: '🪨',
+	temp_humidity: '🌡️',
+	refused_food: '🚫',
+	soak: '💧',
+	brumation: '😴',
 };
 
 export const ACTIVITY_HAS_DURATION: Record<string, boolean> = {
@@ -62,6 +68,7 @@ export const ACTIVITY_HAS_DURATION: Record<string, boolean> = {
 	treat: false,
 	play: true,
 	grooming: true,
+	reptileCare: false,
 	other: false
 };
 

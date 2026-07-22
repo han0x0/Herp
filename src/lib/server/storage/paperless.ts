@@ -85,7 +85,7 @@ export function createPaperlessBackend(config: PaperlessConfig): StorageBackend 
 		},
 
 		async delete() {
-			// Intentional no-op. EinVault stores a reference to a Paperless
+			// Intentional no-op. Herp stores a reference to a Paperless
 			// document; removing the reference must not delete the user's
 			// document from their Paperless archive.
 		}

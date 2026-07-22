@@ -37,27 +37,27 @@ describe('oidc state cookie', () => {
 		const { cookies, jar } = fakeCookies();
 		await setOidcStateCookie(cookies, payload, false);
 		await readAndClearOidcStateCookie(cookies, false);
-		expect(jar.get('einvault_oidc_state')).toBe('');
+		expect(jar.get('herp_oidc_state')).toBe('');
 		expect(await readAndClearOidcStateCookie(cookies, false)).toBeNull();
 	});
 
 	it('rejects a tampered payload', async () => {
 		const { cookies, jar } = fakeCookies();
 		await setOidcStateCookie(cookies, payload, false);
-		const raw = jar.get('einvault_oidc_state')!;
+		const raw = jar.get('herp_oidc_state')!;
 		const [encoded, sig] = [
 			raw.slice(0, raw.lastIndexOf('.')),
 			raw.slice(raw.lastIndexOf('.') + 1)
 		];
 		const tampered = encoded.slice(0, -2) + 'xx' + '.' + sig;
-		jar.set('einvault_oidc_state', tampered);
+		jar.set('herp_oidc_state', tampered);
 		expect(await readAndClearOidcStateCookie(cookies, false)).toBeNull();
 	});
 
 	it('rejects a missing or malformed cookie', async () => {
 		const { cookies, jar } = fakeCookies();
 		expect(await readAndClearOidcStateCookie(cookies, false)).toBeNull();
-		jar.set('einvault_oidc_state', 'no-dot-separator');
+		jar.set('herp_oidc_state', 'no-dot-separator');
 		expect(await readAndClearOidcStateCookie(cookies, false)).toBeNull();
 	});
 

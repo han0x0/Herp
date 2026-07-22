@@ -1,6 +1,16 @@
 {
-	"name": "einvault",
-	"version": "1.2.0",
+	"name": "herp",
+	"version": "0.1.0",
+	"description": "Self-hosted pet health and care tracker for homelabs.",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/han0x0/Herp.git"
+	},
+	"homepage": "https://github.com/han0x0/Herp",
+	"bugs": {
+		"url": "https://github.com/han0x0/Herp/issues"
+	},
+	"keywords": ["pets", "pet-tracker", "health", "self-hosted", "homelab", "sveltekit", "sqlite"],
 	"private": true,
 	"scripts": {
 		"dev": "svelte-kit sync && vite dev",

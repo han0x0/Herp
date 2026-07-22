@@ -1,15 +1,15 @@
 <p align="center">
-  <img src="docs/ein.svg" alt="Ein, the EinVault mascot" width="120" />
+  <img src="docs/ein.svg" alt="Ein, the Herp mascot" width="120" />
 </p>
 
-# EinVault
+# Herp
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.2.0-7348f4.svg)](https://github.com/davefatkin/EinVault/releases)
+[![Version](https://img.shields.io/badge/version-1.2.0-7348f4.svg)](https://github.com/davefatkin/Herp/releases)
 
-EinVault is a private, self-hosted companion health and care tracker built for homelabs. Track health records, daily activities, and care schedules for your animal companions. All data stays on your hardware. No cloud, no telemetry, no external accounts.
+Herp is a private, self-hosted companion health and care tracker built for homelabs. Track health records, daily activities, and care schedules for your animal companions. All data stays on your hardware. No cloud, no telemetry, no external accounts.
 
-Want a look before you self-host? There's a read-only demo at **[demo.einvault.app](https://demo.einvault.app)**. Pick a role and explore; nothing you do there sticks.
+Want a look before you self-host? There's a read-only demo at **[demo.Herp.app](https://demo.Herp.app)**. Pick a role and explore; nothing you do there sticks.
 
 ## Contents
 
@@ -64,7 +64,7 @@ Want a look before you self-host? There's a read-only demo at **[demo.einvault.a
 
 ## Screenshots
 
-![EinVault dashboard](docs/screenshots/member_dashboard_hybrid.png)
+![Herp dashboard](docs/screenshots/member_dashboard_hybrid.png)
 
 ### Companion overview
 
@@ -91,7 +91,7 @@ Download [`docker-compose.prod.yml`](docker-compose.prod.yml) and set your domai
 **`ORIGIN`** is your public domain:
 
 ```yaml
-ORIGIN: https://einvault.yourdomain.com
+ORIGIN: https://Herp.yourdomain.com
 ```
 
 Then:
@@ -121,7 +121,7 @@ Everything else in the compose file can be edited directly:
 | `DEMO_MODE`                   | `false`             | Enable read-only public demo mode. See [Running a demo instance](#running-a-demo-instance).                                                                |
 | `user`                        | `1000:1000`         | UID:GID the container runs as. Change if your `./data` directory has different ownership.                                                                  |
 | `./data` volume               | `./data`            | Where the database and uploads are stored on the host.                                                                                                     |
-| `DATABASE_URL`                | `/data/einvault.db` | Database path inside the container. Unlikely to need changing.                                                                                             |
+| `DATABASE_URL`                | `/data/Herp.db` | Database path inside the container. Unlikely to need changing.                                                                                             |
 | `TWOFA_ENC_KEY`               | -                   | 32-byte base64 key (`openssl rand -base64 32`) that encrypts stored TOTP secrets. Required to enable two-factor authentication.                            |
 
 The calendar feed URL contains a secret token that authenticates the subscriber. Avoid logging full `/api/calendar/` request URLs at the reverse proxy, as the token would appear in plain text in your access logs.
@@ -148,7 +148,7 @@ Set `VIDEO_TRANSCODE=true` to convert each uploaded video to a universal web pro
 
 Transcoding decodes attacker-supplied media with `ffmpeg`. The shipped compose files already run the container with a read-only root filesystem, all capabilities dropped, and `no-new-privileges`, which contains a decoder exploit. For extra isolation you can run the container without network access.
 
-Transcoding is the only CPU-heavy thing EinVault does. It runs one job at a time with `ffmpeg` capped at two threads, so it never grabs the whole host, but the default `cpus: 0.5` / `memory: 256M` limits in `docker-compose.prod.yml` are sized for the app alone and are too low once it is enabled. With transcoding on, raise them to roughly `cpus: 1.5` (use `1.0` on a small host, `2.0` for the fastest conversions) and `memory: 512M` (`1G` if you allow large or 4K clips). The memory bump matters most: the worker buffers the whole clip while converting, and too low a limit will OOM-kill the job rather than slow it down.
+Transcoding is the only CPU-heavy thing Herp does. It runs one job at a time with `ffmpeg` capped at two threads, so it never grabs the whole host, but the default `cpus: 0.5` / `memory: 256M` limits in `docker-compose.prod.yml` are sized for the app alone and are too low once it is enabled. With transcoding on, raise them to roughly `cpus: 1.5` (use `1.0` on a small host, `2.0` for the fastest conversions) and `memory: 512M` (`1G` if you allow large or 4K clips). The memory bump matters most: the worker buffers the whole clip while converting, and too low a limit will OOM-kill the job rather than slow it down.
 
 ### External image storage (optional)
 
@@ -169,7 +169,7 @@ Downloads use short-lived presigned URLs (the app issues a 302 redirect). Access
 
 ### Immich integration (optional)
 
-When `IMMICH_URL` and `IMMICH_API_KEY` are set, members and admins get a "Pick from Immich" option on the journal photo and companion avatar flows. The chosen asset stays in Immich; EinVault stores only a reference and proxies reads through the server using the API key. EinVault never uploads to Immich and never deletes assets from it. Caretakers cannot use the picker. Immich v2 and v3 servers are supported. Only assets with timeline visibility appear in the picker; archived and locked assets are excluded.
+When `IMMICH_URL` and `IMMICH_API_KEY` are set, members and admins get a "Pick from Immich" option on the journal photo and companion avatar flows. The chosen asset stays in Immich; Herp stores only a reference and proxies reads through the server using the API key. Herp never uploads to Immich and never deletes assets from it. Caretakers cannot use the picker. Immich v2 and v3 servers are supported. Only assets with timeline visibility appear in the picker; archived and locked assets are excluded.
 
 |                   | Default | Description                                                                                                                                   |
 | ----------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -183,7 +183,7 @@ Each companion has a Documents tab for receipts, invoices, vaccination records, 
 
 ### Paperless-ngx integration (optional)
 
-When `PAPERLESS_URL` and `PAPERLESS_API_TOKEN` are set, members and admins get an "Add from Paperless" option on the Documents tab that searches a [Paperless-ngx](https://docs.paperless-ngx.com/) instance and attaches a document by reference. The document stays in Paperless; EinVault stores only a reference and proxies reads through the server using the token. EinVault never uploads to or deletes from Paperless. Caretakers cannot use the picker. EinVault serves the archived (OCR'd PDF) version of each referenced document.
+When `PAPERLESS_URL` and `PAPERLESS_API_TOKEN` are set, members and admins get an "Add from Paperless" option on the Documents tab that searches a [Paperless-ngx](https://docs.paperless-ngx.com/) instance and attaches a document by reference. The document stays in Paperless; Herp stores only a reference and proxies reads through the server using the token. Herp never uploads to or deletes from Paperless. Caretakers cannot use the picker. Herp serves the archived (OCR'd PDF) version of each referenced document.
 
 The token can read every document its Paperless user can see, and any member can then search and attach them. Set `PAPERLESS_TAG_ID` to limit the picker and import to one tag, and use a dedicated Paperless user whose object permissions are restricted to that tag.
 
@@ -195,7 +195,7 @@ The token can read every document its Paperless user can see, and any member can
 
 ### SMTP email (optional)
 
-When `SMTP_HOST` and `SMTP_FROM` are both set, EinVault enables outbound email and adds a self-service "Forgot password?" link on the login page. When SMTP is configured, users can also opt in (Settings -> Notifications) to an email when a reminder comes due, and to an email 24 hours before a caretaker shift starts or ends. Caretakers only receive reminder emails for companions assigned to them, and shift emails for their own shifts. Both variables must be set together; setting only one disables email and logs a warning at startup.
+When `SMTP_HOST` and `SMTP_FROM` are both set, Herp enables outbound email and adds a self-service "Forgot password?" link on the login page. When SMTP is configured, users can also opt in (Settings -> Notifications) to an email when a reminder comes due, and to an email 24 hours before a caretaker shift starts or ends. Caretakers only receive reminder emails for companions assigned to them, and shift emails for their own shifts. Both variables must be set together; setting only one disables email and logs a warning at startup.
 
 `ORIGIN` must be set correctly: password reset links are built from it. Behind a reverse proxy, make sure `ORIGIN` matches the public URL users see.
 
@@ -206,11 +206,11 @@ When `SMTP_HOST` and `SMTP_FROM` are both set, EinVault enables outbound email a
 | `SMTP_SECURE` | `false` | `true` = implicit TLS (port 465). `false` = STARTTLS upgrade on connect.                                                        |
 | `SMTP_USER`   | -       | SMTP username. Leave unset for unauthenticated relays.                                                                          |
 | `SMTP_PASS`   | -       | SMTP password. Leave unset for unauthenticated relays.                                                                          |
-| `SMTP_FROM`   | -       | RFC 5322 From address shown to recipients, e.g. `EinVault <einvault@example.com>`. Required (with `SMTP_HOST`) to enable email. |
+| `SMTP_FROM`   | -       | RFC 5322 From address shown to recipients, e.g. `Herp <Herp@example.com>`. Required (with `SMTP_HOST`) to enable email. |
 
 ### ntfy push notifications (optional)
 
-When `NTFY_URL` is set, EinVault can publish push notifications via [ntfy](https://ntfy.sh). This configures the server only (base URL and optional access token). Each user sets their own topic name under Settings -> Notifications; a non-empty topic is that user's opt-in for pushes scoped to what they can see in the app (reminders due, shift alerts). The notification scheduler runs when either SMTP or ntfy is configured. The forgot-password flow remains email-only.
+When `NTFY_URL` is set, Herp can publish push notifications via [ntfy](https://ntfy.sh). This configures the server only (base URL and optional access token). Each user sets their own topic name under Settings -> Notifications; a non-empty topic is that user's opt-in for pushes scoped to what they can see in the app (reminders due, shift alerts). The notification scheduler runs when either SMTP or ntfy is configured. The forgot-password flow remains email-only.
 
 On public servers like ntfy.sh, the topic name is the only access control. Users should pick long, random topic names that are hard to guess.
 
@@ -225,9 +225,9 @@ On public servers like ntfy.sh, the topic name is the only access control. Users
 Data lives in `./data` next to the compose file. Stop the container first so SQLite isn't mid-write, then copy the directory:
 
 ```bash
-docker compose -f docker-compose.prod.yml stop einvault
+docker compose -f docker-compose.prod.yml stop Herp
 cp -r ./data ./data.bak
-docker compose -f docker-compose.prod.yml start einvault
+docker compose -f docker-compose.prod.yml start Herp
 ```
 
 ### Running a demo instance
@@ -282,7 +282,7 @@ For tag selection:
 
 ## Docker (local build)
 
-Builds the image locally instead of pulling from GHCR. Useful for testing Dockerfile changes or working on EinVault itself:
+Builds the image locally instead of pulling from GHCR. Useful for testing Dockerfile changes or working on Herp itself:
 
 ```bash
 docker compose -f docker-compose.dev.yml up -d --build
@@ -306,7 +306,7 @@ npm run db:migrate    # apply migrations
 npm run dev           # http://localhost:5173
 ```
 
-No `.env` needed. The database defaults to `./data/einvault.db` and migrations run on startup. Open `http://localhost:5173` and you'll land on `/setup` to create your admin account.
+No `.env` needed. The database defaults to `./data/Herp.db` and migrations run on startup. Open `http://localhost:5173` and you'll land on `/setup` to create your admin account.
 
 ### Commands
 
@@ -353,7 +353,7 @@ CI runs lint, type checks, unit tests, and the e2e suite (sharded four ways) on 
 
 ## OIDC / SSO (optional)
 
-EinVault supports OpenID Connect for SSO with providers like Authelia, Authentik, Keycloak, and PocketID. OIDC runs alongside password login; existing users keep their passwords. A "Sign in with {provider}" button appears on the login page when OIDC is configured.
+Herp supports OpenID Connect for SSO with providers like Authelia, Authentik, Keycloak, and PocketID. OIDC runs alongside password login; existing users keep their passwords. A "Sign in with {provider}" button appears on the login page when OIDC is configured.
 
 OIDC is **disabled** unless all required variables are set. Add them to your `.env` (local) or compose file (production), then restart.
 
@@ -366,7 +366,7 @@ Register `https://<your-domain>/auth/oidc/callback` as an allowed redirect URI w
 | `OIDC_ISSUER_URL`    | IdP base URL. Discovery happens at `<issuer>/.well-known/openid-configuration`. e.g. `https://auth.example.com` |
 | `OIDC_CLIENT_ID`     | Client ID registered with your IdP.                                                                             |
 | `OIDC_CLIENT_SECRET` | Client secret. Omit for public clients (PKCE-only).                                                             |
-| `OIDC_REDIRECT_URI`  | Must match what's registered with the IdP. e.g. `https://einvault.yourdomain.com/auth/oidc/callback`            |
+| `OIDC_REDIRECT_URI`  | Must match what's registered with the IdP. e.g. `https://Herp.yourdomain.com/auth/oidc/callback`            |
 
 ### Optional variables
 
@@ -390,13 +390,13 @@ The callback decides which account to use in this order:
 3. **Auto-create.** Only if `OIDC_ALLOW_SIGNUP=true`. Username taken from `preferred_username` claim (sanitised, with numeric suffix on collision), or email local-part as fallback.
 4. **Reject.** Otherwise, the user is returned to the login page with an "account not provisioned" message. An admin must create the account first.
 
-By default (`OIDC_ALLOW_SIGNUP=false`), users must already exist in EinVault, or share an email with an existing account, to log in.
+By default (`OIDC_ALLOW_SIGNUP=false`), users must already exist in Herp, or share an email with an existing account, to log in.
 
 ### Admin role mapping
 
 If `OIDC_ADMIN_GROUPS` is set, the user's `groups` claim is checked on **every** login. Membership in any listed group sets the user's role to `admin`; absence demotes them to the default role. Revoking admin at the IdP takes effect on next login.
 
-If `OIDC_ADMIN_GROUPS` is unset, OIDC does not touch user roles. Roles set in EinVault's admin UI are preserved across SSO logins.
+If `OIDC_ADMIN_GROUPS` is unset, OIDC does not touch user roles. Roles set in Herp's admin UI are preserved across SSO logins.
 
 `OIDC_DEFAULT_ROLE` cannot grant admin; allowed values are `member` and `caretaker`.
 
@@ -404,7 +404,7 @@ Group membership is read from the top-level `groups` claim in the ID token, as a
 
 ### Logout
 
-By default, logout destroys the local EinVault session and returns the user to `/auth/login`. Set `OIDC_POST_LOGOUT_REDIRECT_URI` (and register it with your IdP) to also end the IdP session via [RP-initiated logout](https://openid.net/specs/openid-connect-rpinitiated-1_0.html).
+By default, logout destroys the local Herp session and returns the user to `/auth/login`. Set `OIDC_POST_LOGOUT_REDIRECT_URI` (and register it with your IdP) to also end the IdP session via [RP-initiated logout](https://openid.net/specs/openid-connect-rpinitiated-1_0.html).
 
 ### Provider notes
 
@@ -412,14 +412,14 @@ By default, logout destroys the local EinVault session and returns the user to `
 | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Authelia**  | Register the redirect URI under the OIDC client config. Set `client_secret_basic` (default) or `none` for public clients.                                                                           |
 | **Authentik** | Create an OAuth2/OIDC provider; scope mapping for `groups` is built-in. `OIDC_ADMIN_GROUPS` matches the `groups` claim directly.                                                                    |
-| **Keycloak**  | Add a "Group Membership" mapper to the client with token claim name `groups` and "Full group path" off. EinVault does not read `realm_access.roles`. Add the redirect URI to "Valid Redirect URIs". |
+| **Keycloak**  | Add a "Group Membership" mapper to the client with token claim name `groups` and "Full group path" off. Herp does not read `realm_access.roles`. Add the redirect URI to "Valid Redirect URIs". |
 | **PocketID**  | Public-client first; omit `OIDC_CLIENT_SECRET`. Register the redirect URI in the client settings.                                                                                                   |
 
 ---
 
 ## Two-factor authentication (2FA)
 
-EinVault supports per-user TOTP-based two-factor authentication. Users can enable it under Settings → Security: scan the QR code with any TOTP app (Aegis, Bitwarden Authenticator, Google Authenticator, etc.), enter the confirmation code, and download the 10 one-time backup codes. Each backup code works once and is not shown again.
+Herp supports per-user TOTP-based two-factor authentication. Users can enable it under Settings → Security: scan the QR code with any TOTP app (Aegis, Bitwarden Authenticator, Google Authenticator, etc.), enter the confirmation code, and download the 10 one-time backup codes. Each backup code works once and is not shown again.
 
 **Requirements.** 2FA requires `TWOFA_ENC_KEY` to be set. This is a 32-byte base64 key used to encrypt stored TOTP secrets at rest. Without it, 2FA is unavailable and the enforcement setting in the admin panel is locked.
 
@@ -451,7 +451,7 @@ When enforcement is active, un-enrolled users are redirected to `/2fa-setup` aft
 
 ## Bearer-token API (optional)
 
-EinVault exposes an HTTP API so smart buttons, scripts, and other devices can log events, record health and weight, complete reminders, and read companion, shift, and roster data without a browser session. It is enabled by default; set `API_TOKENS_ENABLED=false` to turn off token creation and every endpoint below.
+Herp exposes an HTTP API so smart buttons, scripts, and other devices can log events, record health and weight, complete reminders, and read companion, shift, and roster data without a browser session. It is enabled by default; set `API_TOKENS_ENABLED=false` to turn off token creation and every endpoint below.
 
 **Creating a token.** Go to Settings → API tokens, create a token, and copy it. The raw token is shown only once. A token acts as the user who created it and inherits their permissions, so a caretaker's token still requires an active shift and only reaches assigned companions, and can only write the current day's journal. Each token has an **access** level, either full (read and write) or write-only, which hides companion profile details (`GET /api/companions` returns just id, name, species, and active state), plus an optional **expiry**. Use **Rotate** to re-key a device: it mints a fresh token with the same name and access and revokes the old one.
 
@@ -460,8 +460,8 @@ EinVault exposes an HTTP API so smart buttons, scripts, and other devices can lo
 **Authenticating.** Send the token in an `Authorization: Bearer <token>` header on every request.
 
 ```bash
-curl -X POST https://einvault.example.com/api/logs \
-  -H "Authorization: Bearer $EINVAULT_TOKEN" \
+curl -X POST https://Herp.example.com/api/logs \
+  -H "Authorization: Bearer $Herp_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"companionId": "abc123", "type": "walk", "durationMinutes": 30}'
 ```

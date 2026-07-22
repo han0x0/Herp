@@ -1,34 +1,34 @@
-# EinVault — Development / local build
+﻿# herp 鈥?Development / local build
 # Builds the image from the local Dockerfile instead of pulling from GHCR.
-# Use this when working on EinVault itself or testing Docker image changes.
+# Use this when working on herp itself or testing Docker image changes.
 #
 # Usage:
 #   docker compose -f docker-compose.dev.yml up -d --build
 
 services:
-  einvault:
+  herp:
     build:
       context: .
       dockerfile: Dockerfile
-    image: einvault:dev
-    container_name: einvault-dev
+    image: herp:dev
+    container_name: herp-dev
     restart: unless-stopped
 
     ports:
-      - '127.0.0.1:${EINVAULT_PORT:-3000}:3000'
+      - '127.0.0.1:${herp_PORT:-3000}:3000'
 
     volumes:
-      - ${EINVAULT_DATA:-./data}:/data
+      - ${herp_DATA:-./data}:/data
 
     user: '${PUID:-1000}:${PGID:-1000}'
 
     environment:
-      # Your public URL — must match the address you access EinVault from.
+      # Your public URL 鈥?must match the address you access herp from.
       # Used for CSRF protection; the app will reject form submissions without it.
       ORIGIN: ${ORIGIN:-http://localhost:3000}
 
       NODE_ENV: production
-      DATABASE_URL: /data/einvault.db
+      DATABASE_URL: /data/herp.db
       # Maximum image upload size in MB. BODY_SIZE_LIMIT is derived automatically.
       UPLOAD_MAX_MB: ${UPLOAD_MAX_MB:-10}
       # Maximum journal video upload size in MB (stored as-is, no transcoding).

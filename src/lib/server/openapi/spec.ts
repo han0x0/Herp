@@ -432,7 +432,7 @@ export function buildOpenApiDocument() {
 		info: {
 			// API contract version, versioned independently of the app's release
 			// number: bump minor for additive changes, major for breaking ones.
-			title: 'EinVault API',
+			title: 'Herp API',
 			version: '1.0.0',
 			description:
 				'Headless HTTP API for smart buttons, scripts, and devices: log events and journal entries, record health and weight, list and complete reminders, and read companions, shifts, and the user roster.'

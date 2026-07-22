@@ -84,7 +84,7 @@
 </script>
 
 <svelte:head>
-	<title>{t(locale, 'page.journal.title')} | {companion.name} | EinVault</title>
+	<title>{t(locale, 'page.journal.title')} | {companion.name} | Herp</title>
 </svelte:head>
 
 <!-- Lightbox -->

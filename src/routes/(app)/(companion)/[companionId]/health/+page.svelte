@@ -226,7 +226,7 @@
 </script>
 
 <svelte:head>
-	<title>{t(locale, 'page.health.title')} | {data.companion.name} | EinVault</title>
+	<title>{t(locale, 'page.health.title')} | {data.companion.name} | Herp</title>
 </svelte:head>
 
 <!-- Detail modal -->

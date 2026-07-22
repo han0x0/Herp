@@ -174,7 +174,7 @@ const demoReadOnly: Handle = async ({ event, resolve }) => {
 		if (event.url.pathname.startsWith('/api')) {
 			return json({ error: 'This is a read-only demo.', demo: true }, { status: 403 });
 		}
-		event.cookies.set('einvault_demo_notice', '1', {
+		event.cookies.set('herp_demo_notice', '1', {
 			path: '/',
 			httpOnly: false,
 			sameSite: 'strict',
@@ -204,7 +204,7 @@ const localeDetect: Handle = async ({ event, resolve }) => {
 	// Priority: user preference > cookie > Accept-Language > default.
 	// In demo mode the visitor shares a seed account whose stored locale ('en')
 	// can't be changed (read-only), so the per-visitor cookie must win instead.
-	const cookieRaw = event.cookies.get('einvault_locale');
+	const cookieRaw = event.cookies.get('herp_locale');
 	const cookieLocale = cookieRaw ? resolveLocale(cookieRaw) : null;
 	const locale = DEMO_MODE
 		? (cookieLocale ?? parseAcceptLanguage(event.request.headers.get('accept-language')))
@@ -216,8 +216,8 @@ const localeDetect: Handle = async ({ event, resolve }) => {
 
 	// Keep cookie in sync (skip for asset routes)
 	const isAsset = ASSET_PATHS.some((p) => event.url.pathname.startsWith(p));
-	if (!isAsset && event.cookies.get('einvault_locale') !== locale) {
-		event.cookies.set('einvault_locale', locale, {
+	if (!isAsset && event.cookies.get('herp_locale') !== locale) {
+		event.cookies.set('herp_locale', locale, {
 			path: '/',
 			httpOnly: false,
 			secure: event.request.headers.get('x-forwarded-proto') === 'https',

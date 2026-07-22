@@ -26,7 +26,7 @@
 </script>
 
 <svelte:head>
-	<title>{status} | EinVault</title>
+	<title>{status} | Herp</title>
 </svelte:head>
 
 <div class="min-h-screen flex flex-col items-center justify-center px-4 bg-background">

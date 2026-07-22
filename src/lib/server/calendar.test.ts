@@ -62,10 +62,10 @@ describe('getCalendarItems', () => {
 			now: NOW
 		});
 		const ids = items.map((i) => i.uid);
-		expect(ids).toContain('health-h1@einvault');
-		expect(ids).toContain('reminder-rem1@einvault');
-		expect(ids).not.toContain('health-h-arch@einvault');
-		expect(ids).not.toContain('health-h-old@einvault');
+		expect(ids).toContain('health-h1@herp');
+		expect(ids).toContain('reminder-rem1@herp');
+		expect(ids).not.toContain('health-h-arch@herp');
+		expect(ids).not.toContain('health-h-old@herp');
 	});
 
 	it('type filter narrows', async () => {
@@ -85,7 +85,7 @@ describe('getCalendarItems', () => {
 			historyDays: 0,
 			now: NOW
 		});
-		expect(items.map((i) => i.uid)).toContain('health-h-old@einvault');
+		expect(items.map((i) => i.uid)).toContain('health-h-old@herp');
 	});
 
 	it('companion filter restricts to the given id', async () => {

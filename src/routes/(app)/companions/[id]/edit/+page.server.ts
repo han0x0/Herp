@@ -3,7 +3,7 @@ import type { PageServerLoad, Actions } from './$types';
 import { t } from '$lib/i18n';
 import { db, schema } from '$lib/server/db';
 import { eq } from 'drizzle-orm';
-import { parseSex, parseWeightUnit } from '$lib/server/validation';
+import { parseSex, parseSpecies, parseWeightUnit } from '$lib/server/validation';
 
 export const load: PageServerLoad = async ({ params, locals }) => {
 	if (!locals.user) redirect(302, '/auth/login');
@@ -37,6 +37,7 @@ export const actions: Actions = {
 			.set({
 				name,
 				breed: String(data.get('breed') ?? '').trim() || null,
+				species: parseSpecies(String(data.get('species') ?? '')),
 				sex: parseSex(String(data.get('sex') ?? '')),
 				dob: String(data.get('dob') ?? '') || null,
 				weightUnit: parseWeightUnit(String(data.get('weightUnit') ?? '')),

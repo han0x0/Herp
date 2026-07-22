@@ -250,7 +250,7 @@
 </script>
 
 <svelte:head>
-	<title>{t(locale, 'overview.title')} | EinVault</title>
+	<title>{t(locale, 'overview.title')} | Herp</title>
 </svelte:head>
 
 <svelte:window onkeydown={handleOverviewWindowKey} />
