@@ -62,9 +62,7 @@ export async function validateSessionToken(token: string) {
 	}
 
 	if (Math.random() < 0.01) {
-		cleanupExpiredSessions().catch((err) =>
-			console.error('[herp] session cleanup failed:', err)
-		);
+		cleanupExpiredSessions().catch((err) => console.error('[herp] session cleanup failed:', err));
 	}
 
 	return { session, user };

@@ -10,7 +10,15 @@
 	"bugs": {
 		"url": "https://github.com/han0x0/Herp/issues"
 	},
-	"keywords": ["pets", "pet-tracker", "health", "self-hosted", "homelab", "sveltekit", "sqlite"],
+	"keywords": [
+		"pets",
+		"pet-tracker",
+		"health",
+		"self-hosted",
+		"homelab",
+		"sveltekit",
+		"sqlite"
+	],
 	"private": true,
 	"scripts": {
 		"dev": "svelte-kit sync && vite dev",

@@ -46,11 +46,8 @@
 				>
 			</select>
 		</form>
-		<a
-			href="https://github.com/davefatkin/Herp"
-			class="underline"
-			target="_blank"
-			rel="noopener">{t(locale, 'demo.sourceLink')}</a
+		<a href="https://github.com/davefatkin/Herp" class="underline" target="_blank" rel="noopener"
+			>{t(locale, 'demo.sourceLink')}</a
 		>
 	</div>
 </div>

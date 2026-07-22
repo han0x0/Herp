@@ -4,13 +4,13 @@ Herp is a self-hosted companion health and care tracker built with SvelteKit, SQ
 
 ## Project Structure & Module Organization
 
-- `src/routes/` ¡ª SvelteKit routes. `(app)/` is the authenticated area (members, admins, caretakers), `auth/` is login/OIDC/2FA, `setup/` is the one-time admin wizard, and `api/` exposes the bearer-token JSON API.
-- `src/lib/server/` ¡ª Server-only code: `db/` (Drizzle schema + migrations), `auth/`, `mail/`, `notify/`, `storage/`, `video/`, `openapi/`. Anything here is never bundled to the client.
-- `src/lib/components/` ¡ª Svelte UI, grouped by feature (`journal/`, `log/`, `reminders/`, `settings/`, `admin/`, `auth/`, `shell/`, `ui/`).
-- `src/lib/i18n/` ¡ª Locale message catalogues (English source plus translations).
-- `tests/e2e/` ¡ª Playwright specs. `tests/lib/` holds shared fixtures and `tests/lib/seed.ts`. `tests/fakes/` runs local stand-ins for SMTP, OIDC, S3, Immich, Paperless, and ntfy.
-- `drizzle/` ¡ª Generated SQL migrations (committed). `data/` ¡ª SQLite DB and uploaded media (gitignored).
-- `docs/` ¡ª Screenshots and docs assets. `scripts/` ¡ª Maintenance scripts.
+- `src/routes/` ï¿½ï¿½ SvelteKit routes. `(app)/` is the authenticated area (members, admins, caretakers), `auth/` is login/OIDC/2FA, `setup/` is the one-time admin wizard, and `api/` exposes the bearer-token JSON API.
+- `src/lib/server/` ï¿½ï¿½ Server-only code: `db/` (Drizzle schema + migrations), `auth/`, `mail/`, `notify/`, `storage/`, `video/`, `openapi/`. Anything here is never bundled to the client.
+- `src/lib/components/` ï¿½ï¿½ Svelte UI, grouped by feature (`journal/`, `log/`, `reminders/`, `settings/`, `admin/`, `auth/`, `shell/`, `ui/`).
+- `src/lib/i18n/` ï¿½ï¿½ Locale message catalogues (English source plus translations).
+- `tests/e2e/` ï¿½ï¿½ Playwright specs. `tests/lib/` holds shared fixtures and `tests/lib/seed.ts`. `tests/fakes/` runs local stand-ins for SMTP, OIDC, S3, Immich, Paperless, and ntfy.
+- `drizzle/` ï¿½ï¿½ Generated SQL migrations (committed). `data/` ï¿½ï¿½ SQLite DB and uploaded media (gitignored).
+- `docs/` ï¿½ï¿½ Screenshots and docs assets. `scripts/` ï¿½ï¿½ Maintenance scripts.
 
 ## Build, Test, and Development Commands
 
@@ -35,7 +35,7 @@ No `.env` is required for local dev. First visit redirects to `/setup` to create
 ## Coding Style & Naming Conventions
 
 - TypeScript strict mode; no implicit `any`.
-- Svelte 5 runes (`$state`, `$derived`, `$effect`, `$props`) ¡ª no legacy Svelte 4 syntax.
+- Svelte 5 runes (`$state`, `$derived`, `$effect`, `$props`) ï¿½ï¿½ no legacy Svelte 4 syntax.
 - Prettier config: tabs, single quotes, no trailing commas, `printWidth: 100`. Run `npm run format` before committing.
 - ESLint flat config with `eslint-plugin-svelte`, `@typescript-eslint`, and `prettier` integration.
 - File naming: routes are kebab-case directories; Svelte components PascalCase (`JournalEntryCard.svelte`); server helpers camelCase (`sendReminder.ts`).

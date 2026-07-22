@@ -40,9 +40,9 @@
 	let orderedEventTypes = $derived.by(() => {
 		if (!companionSpecies) return baseEventTypes;
 		const priority: Record<Species, string[]> = {
-			dog:     ['walk', 'meal', 'bathroom', 'treat', 'play', 'grooming', 'reptileCare', 'other'],
-			cat:     ['meal', 'bathroom', 'play', 'grooming', 'treat', 'walk', 'reptileCare', 'other'],
-			mouse:   ['meal', 'play', 'treat', 'walk', 'grooming', 'bathroom', 'reptileCare', 'other'],
+			dog: ['walk', 'meal', 'bathroom', 'treat', 'play', 'grooming', 'reptileCare', 'other'],
+			cat: ['meal', 'bathroom', 'play', 'grooming', 'treat', 'walk', 'reptileCare', 'other'],
+			mouse: ['meal', 'play', 'treat', 'walk', 'grooming', 'bathroom', 'reptileCare', 'other'],
 			reptile: ['reptileCare', 'meal', 'treat', 'play', 'walk', 'grooming', 'bathroom', 'other']
 		};
 		const order = priority[companionSpecies];
@@ -73,9 +73,9 @@
 		return new Date(now.getTime() - offset).toISOString().slice(0, 16);
 	}
 
-	let TYPE_PILL_LABELS = $derived(Object.fromEntries(
-		orderedEventTypes.map((t) => [t.value, `${t.icon} ${t.label}`])
-	));
+	let TYPE_PILL_LABELS = $derived(
+		Object.fromEntries(orderedEventTypes.map((t) => [t.value, `${t.icon} ${t.label}`]))
+	);
 </script>
 
 {#if form?.success}

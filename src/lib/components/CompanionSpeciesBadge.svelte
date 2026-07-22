@@ -14,11 +14,14 @@
 
 	import type { MessageKey } from '$lib/i18n';
 
-	const SPECIES_META: Record<Species, { emoji: string; variant: 'primary' | 'teal' | 'gold' | 'secondary'; labelKey: MessageKey }> = {
-		dog:     { emoji: '🐕', variant: 'primary',  labelKey: 'enum.species.dog' },
-		cat:     { emoji: '🐈', variant: 'gold',     labelKey: 'enum.species.cat' },
-		mouse:   { emoji: '🐭', variant: 'secondary', labelKey: 'enum.species.mouse' },
-		reptile: { emoji: '🦎', variant: 'teal',     labelKey: 'enum.species.reptile' }
+	const SPECIES_META: Record<
+		Species,
+		{ emoji: string; variant: 'primary' | 'teal' | 'gold' | 'secondary'; labelKey: MessageKey }
+	> = {
+		dog: { emoji: '🐕', variant: 'primary', labelKey: 'enum.species.dog' },
+		cat: { emoji: '🐈', variant: 'gold', labelKey: 'enum.species.cat' },
+		mouse: { emoji: '🐭', variant: 'secondary', labelKey: 'enum.species.mouse' },
+		reptile: { emoji: '🦎', variant: 'teal', labelKey: 'enum.species.reptile' }
 	};
 
 	let meta = $derived(species ? SPECIES_META[species] : null);

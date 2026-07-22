@@ -257,12 +257,16 @@
 			? data.companions
 			: data.companions.filter((c) => c.species === speciesFilter)
 	);
-	const SPECIES_FILTERS: Array<{ value: SpeciesFilter; key: import('$lib/i18n').MessageKey; emoji: string }> = [
-		{ value: 'all',     key: 'overview.speciesFilter.all',     emoji: '🐾' },
-		{ value: 'dog',     key: 'enum.species.dog',               emoji: '🐕' },
-		{ value: 'cat',     key: 'enum.species.cat',               emoji: '🐈' },
-		{ value: 'mouse',   key: 'enum.species.mouse',             emoji: '🐭' },
-		{ value: 'reptile', key: 'enum.species.reptile',           emoji: '🦎' }
+	const SPECIES_FILTERS: Array<{
+		value: SpeciesFilter;
+		key: import('$lib/i18n').MessageKey;
+		emoji: string;
+	}> = [
+		{ value: 'all', key: 'overview.speciesFilter.all', emoji: '🐾' },
+		{ value: 'dog', key: 'enum.species.dog', emoji: '🐕' },
+		{ value: 'cat', key: 'enum.species.cat', emoji: '🐈' },
+		{ value: 'mouse', key: 'enum.species.mouse', emoji: '🐭' },
+		{ value: 'reptile', key: 'enum.species.reptile', emoji: '🦎' }
 	];
 </script>
 
@@ -492,17 +496,26 @@
 				{t(locale, 'overview.heading.companions')}
 			</h2>
 
-			
 			<!-- Species filter chips -->
-			<div class="flex flex-wrap gap-1.5 mb-3" role="group" aria-label={t(locale, 'overview.speciesFilter.label')}>
+			<div
+				class="flex flex-wrap gap-1.5 mb-3"
+				role="group"
+				aria-label={t(locale, 'overview.speciesFilter.label')}
+			>
 				{#each SPECIES_FILTERS as filter (filter.value)}
-					{@const count = filter.value === 'all' ? data.companions.length : data.companions.filter((c) => c.species === filter.value).length}
+					{@const count =
+						filter.value === 'all'
+							? data.companions.length
+							: data.companions.filter((c) => c.species === filter.value).length}
 					<button
 						type="button"
 						onclick={() => (speciesFilter = filter.value)}
 						aria-pressed={speciesFilter === filter.value}
 						disabled={filter.value !== 'all' && count === 0}
-						class="inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-all {speciesFilter === filter.value ? 'bg-primary text-primary-foreground border-primary shadow-sm' : 'bg-card text-foreground border-border hover:border-primary/40 disabled:opacity-40 disabled:cursor-not-allowed'}"
+						class="inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-all {speciesFilter ===
+						filter.value
+							? 'bg-primary text-primary-foreground border-primary shadow-sm'
+							: 'bg-card text-foreground border-border hover:border-primary/40 disabled:opacity-40 disabled:cursor-not-allowed'}"
 					>
 						<span aria-hidden="true">{filter.emoji}</span>
 						<span>{t(locale, filter.key)}</span>
@@ -541,8 +554,8 @@
 							}
 						}}
 						class="group relative block overflow-hidden rounded-xl border bg-card pt-5 px-4 pb-4 shadow-sm hover:shadow-md hover:border-primary/40 hover:-translate-y-0.5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
-				>
-					<span class="absolute inset-x-0 top-0 h-1 bg-brand-gradient" aria-hidden="true"></span>
+					>
+						<span class="absolute inset-x-0 top-0 h-1 bg-brand-gradient" aria-hidden="true"></span>
 						<!-- Card header: avatar + name + care status badge -->
 						<div class="flex items-center gap-3 mb-3">
 							<CompanionAvatar

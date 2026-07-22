@@ -27,15 +27,15 @@ export const actions: Actions = {
 
 		if (!name) {
 			return fail(400, {
-			error: t(locals.locale, 'error.nameRequired'),
-			name,
-			breed,
-			species,
-			sex,
-			dob,
-			microchip,
-			bio
-		});
+				error: t(locals.locale, 'error.nameRequired'),
+				name,
+				breed,
+				species,
+				sex,
+				dob,
+				microchip,
+				bio
+			});
 		}
 
 		const id = generateId(15);
