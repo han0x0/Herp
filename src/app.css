@@ -147,35 +147,35 @@
 @layer base {
 	:root {
 		color-scheme: light;
-		--background: 258 47% 96%;
+		--background: 220 25% 97%;
 		--foreground: 252 43% 15%;
 		--card: 0 0% 100%;
 		--card-foreground: 252 43% 15%;
 		--popover: 0 0% 100%;
 		--popover-foreground: 252 43% 15%;
-		--primary: 255 89% 62%;
+		--primary: 214 100% 50%;
 		--primary-foreground: 0 0% 100%;
-		--primary-link: 255 89% 62%;
-		--secondary: 258 30% 94%;
+		--primary-link: 214 100% 45%;
+		--secondary: 220 20% 95%;
 		--secondary-foreground: 252 43% 15%;
-		--muted: 258 30% 94%;
+		--muted: 220 20% 95%;
 		--muted-foreground: 249 13% 47%;
-		--accent: 258 30% 94%;
+		--accent: 220 20% 95%;
 		--accent-foreground: 252 43% 15%;
 		--destructive: 0 72% 51%;
 		--destructive-foreground: 0 0% 100%;
-		--border: 252 33% 92%;
-		--input: 252 33% 92%;
-		--ring: 255 89% 62%;
+		--border: 220 20% 90%;
+		--input: 220 20% 90%;
+		--ring: 214 100% 50%;
 		--radius: 0.85rem;
-		--surface-2: 258 40% 98%;
+		--surface-2: 220 30% 98%;
 		--coral: 12 86% 59%;
 		--coral-foreground: 0 0% 100%;
 		--gold: 41 86% 38%;
 		--gold-foreground: 0 0% 100%;
 		--teal: 175 83% 27%;
 		--teal-foreground: 0 0% 100%;
-		--brand-gradient: linear-gradient(135deg, hsl(255 89% 62%), hsl(12 86% 59%));
+		--brand-gradient: linear-gradient(135deg, hsl(214 100% 50%), hsl(12 86% 59%));
 	}
 
 	.dark {
@@ -186,9 +186,9 @@
 		--card-foreground: 0 0% 100%;
 		--popover: 237 28% 14%;
 		--popover-foreground: 0 0% 100%;
-		--primary: 252 100% 65%;
+		--primary: 214 100% 60%;
 		--primary-foreground: 0 0% 100%;
-		--primary-link: 252 100% 82%;
+		--primary-link: 214 100% 75%;
 		--secondary: 238 30% 19%;
 		--secondary-foreground: 0 0% 100%;
 		--muted: 238 30% 19%;
@@ -199,7 +199,7 @@
 		--destructive-foreground: 0 0% 100%;
 		--border: 238 25% 22%;
 		--input: 238 25% 22%;
-		--ring: 252 100% 68%;
+		--ring: 214 100% 65%;
 		--surface-2: 238 35% 19%;
 		--coral: 13 84% 62%;
 		--coral-foreground: 240 36% 9%;
@@ -207,7 +207,7 @@
 		--gold-foreground: 240 36% 9%;
 		--teal: 172 66% 50%;
 		--teal-foreground: 174 80% 8%;
-		--brand-gradient: linear-gradient(135deg, hsl(252 100% 65%), hsl(13 84% 62%));
+		--brand-gradient: linear-gradient(135deg, hsl(214 100% 60%), hsl(13 84% 62%));
 	}
 
 	* {
@@ -389,7 +389,7 @@
 	/* Auth brand hero gradient (login + setup panels, forgot/reset backdrop) */
 	.bg-auth-brand {
 		background:
-			radial-gradient(130% 130% at 0% 0%, hsl(252 100% 65% / 0.55), transparent 55%),
+			radial-gradient(130% 130% at 0% 0%, hsl(214 100% 55% / 0.55), transparent 55%),
 			radial-gradient(130% 130% at 100% 100%, hsl(13 100% 67% / 0.5), transparent 55%),
 			hsl(237 28% 11%);
 	}
