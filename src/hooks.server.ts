@@ -3,7 +3,7 @@ import type { Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 import { validateAuth, isSecureRequest } from '$server/auth';
 import { env } from '$env/dynamic/private';
-import { resolveLocale, parseAcceptLanguage } from '$lib/i18n';
+import { resolveLocale, parseAcceptLanguage, DEFAULT_LOCALE } from '$lib/i18n';
 import { logOidcBootStatus } from '$lib/server/auth/oidc';
 import {
 	S3_CONFIG,
@@ -201,16 +201,17 @@ const demoReadOnly: Handle = async ({ event, resolve }) => {
 };
 
 const localeDetect: Handle = async ({ event, resolve }) => {
-	// Priority: user preference > cookie > Accept-Language > default.
+	// Priority: user preference > cookie > DEFAULT_LOCALE (zh). We deliberately do NOT
+	// auto-detect from Accept-Language for anonymous visitors because this app is shipped
+	// for Chinese users by default; visitors can switch via the language card, which
+	// then persists in the cookie.
 	// In demo mode the visitor shares a seed account whose stored locale ('en')
 	// can't be changed (read-only), so the per-visitor cookie must win instead.
 	const cookieRaw = event.cookies.get('herp_locale');
 	const cookieLocale = cookieRaw ? resolveLocale(cookieRaw) : null;
 	const locale = DEMO_MODE
 		? (cookieLocale ?? parseAcceptLanguage(event.request.headers.get('accept-language')))
-		: (event.locals.user?.locale ??
-			cookieLocale ??
-			parseAcceptLanguage(event.request.headers.get('accept-language')));
+		: (event.locals.user?.locale ?? cookieLocale ?? DEFAULT_LOCALE);
 
 	event.locals.locale = locale;
 

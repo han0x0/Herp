@@ -25,3 +25,7 @@ Thumbs.db
 test-results/
 playwright-report/
 blob-report/
+
+# Local dev server logs (created by backgrounded npm run dev)
+herp-dev.out.log
+herp-dev.err.log
