@@ -31,8 +31,8 @@ const test = base.extend<{ world: OidcWorld }>({
 				env: {
 					PORT: String(appPort),
 					OIDC_ISSUER_URL: oidc.issuerUrl,
-					OIDC_CLIENT_ID: 'einvault-test',
-					OIDC_CLIENT_SECRET: 'einvault-test-secret',
+					OIDC_CLIENT_ID: 'herp-test',
+					OIDC_CLIENT_SECRET: 'herp-test-secret',
 					OIDC_REDIRECT_URI: `http://localhost:${appPort}/auth/oidc/callback`,
 					OIDC_STATE_SECRET: 'e2e-oidc-state-secret-not-for-production',
 					OIDC_ALLOW_INSECURE_HTTP: 'true',

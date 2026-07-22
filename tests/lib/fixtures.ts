@@ -33,7 +33,7 @@ export const test = base.extend<TestFixtures, WorkerFixtures>({
 						SMTP_HOST: '127.0.0.1',
 						SMTP_PORT: String(smtp.port),
 						SMTP_SECURE: 'false',
-						SMTP_FROM: 'einvault-test@example.com'
+						SMTP_FROM: 'herp-test@example.com'
 					}
 				});
 			} catch (err) {

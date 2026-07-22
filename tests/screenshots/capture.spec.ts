@@ -58,7 +58,7 @@ test('capture screenshots', async ({ app, browser }) => {
 				reducedMotion: 'reduce',
 				colorScheme: theme
 			});
-			await ctx.addCookies([{ name: 'einvault_theme', value: theme, url: app.server.baseURL }]);
+			await ctx.addCookies([{ name: 'herp_theme', value: theme, url: app.server.baseURL }]);
 			const page = await ctx.newPage();
 			await page.goto(shot.path, { waitUntil: 'networkidle' });
 			await page.waitForTimeout(500);

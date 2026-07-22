@@ -27,7 +27,7 @@ const test = base.extend<{ world: S3World }>({
 				env: {
 					STORAGE_BACKEND: 's3',
 					S3_ENDPOINT: fake.url,
-					S3_BUCKET: 'einvault-test',
+					S3_BUCKET: 'herp-test',
 					S3_REGION: 'auto',
 					S3_ACCESS_KEY_ID: 'test',
 					S3_SECRET_ACCESS_KEY: 'test',

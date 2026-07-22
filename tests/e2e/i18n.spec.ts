@@ -25,9 +25,9 @@ test.describe('i18n', () => {
 		await expect(asMember.locator('html')).toHaveAttribute('lang', 'en');
 	});
 
-	test('einvault_locale cookie drives language on anonymous pages', async ({ app, browser }) => {
+	test('herp_locale cookie drives language on anonymous pages', async ({ app, browser }) => {
 		const ctx = await browser.newContext({ baseURL: app.server.baseURL });
-		await ctx.addCookies([{ name: 'einvault_locale', value: 'de', url: app.server.baseURL }]);
+		await ctx.addCookies([{ name: 'herp_locale', value: 'de', url: app.server.baseURL }]);
 		const page = await ctx.newPage();
 		await page.goto('/auth/login');
 

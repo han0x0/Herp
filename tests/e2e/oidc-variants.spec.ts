@@ -41,8 +41,8 @@ async function bootOidcWorld(
 	const baseOidcEnv: Record<string, string> = withOidc
 		? {
 				OIDC_ISSUER_URL: oidc!.issuerUrl,
-				OIDC_CLIENT_ID: 'einvault-test',
-				OIDC_CLIENT_SECRET: 'einvault-test-secret',
+				OIDC_CLIENT_ID: 'herp-test',
+				OIDC_CLIENT_SECRET: 'herp-test-secret',
 				OIDC_REDIRECT_URI: `http://localhost:${appPort}/auth/oidc/callback`,
 				OIDC_STATE_SECRET: 'e2e-oidc-state-secret-not-for-production',
 				OIDC_ALLOW_INSECURE_HTTP: 'true',
@@ -150,7 +150,7 @@ test('oidc-variants: new user gets caretaker role when OIDC_DEFAULT_ROLE=caretak
 test('oidc-variants: admin group membership grants admin role', async ({ page }) => {
 	const world = await bootOidcWorld('admin-group-grants', {
 		OIDC_ALLOW_SIGNUP: 'true',
-		OIDC_ADMIN_GROUPS: 'einvault-admins'
+		OIDC_ADMIN_GROUPS: 'herp-admins'
 	});
 	try {
 		world.oidc.setClaims({
@@ -158,7 +158,7 @@ test('oidc-variants: admin group membership grants admin role', async ({ page })
 			email: 'variant3@example.com',
 			preferred_username: 'variantuser3',
 			name: 'Variant User 3',
-			groups: ['einvault-admins']
+			groups: ['herp-admins']
 		});
 
 		await page.goto(world.server.baseURL + '/auth/login');
@@ -183,7 +183,7 @@ test('oidc-variants: admin group membership grants admin role', async ({ page })
 test('oidc-variants: group absence demotes admin to member', async ({ page }) => {
 	const world = await bootOidcWorld('admin-group-demote', {
 		OIDC_ALLOW_SIGNUP: 'true',
-		OIDC_ADMIN_GROUPS: 'einvault-admins'
+		OIDC_ADMIN_GROUPS: 'herp-admins'
 	});
 	try {
 		const sub = 'variant-sub-4';
@@ -194,7 +194,7 @@ test('oidc-variants: group absence demotes admin to member', async ({ page }) =>
 			email: 'variant4@example.com',
 			preferred_username: 'variantuser4',
 			name: 'Variant User 4',
-			groups: ['einvault-admins']
+			groups: ['herp-admins']
 		});
 
 		await page.goto(world.server.baseURL + '/auth/login');

@@ -4,7 +4,7 @@
  * App env wiring for e2e specs that exercise S3 storage:
  *   STORAGE_BACKEND=s3
  *   S3_ENDPOINT=<fake.url>           (e.g. http://127.0.0.1:<port>)
- *   S3_BUCKET=einvault-test
+ *   S3_BUCKET=herp-test
  *   S3_REGION=auto
  *   S3_ACCESS_KEY_ID=test
  *   S3_SECRET_ACCESS_KEY=test
@@ -26,7 +26,7 @@ export interface S3Fake extends Fake {
 	objects: Map<string, S3Object>;
 }
 
-const BUCKET = 'einvault-test';
+const BUCKET = 'herp-test';
 
 export async function startS3Fake(): Promise<S3Fake> {
 	const objects = new Map<string, S3Object>();

@@ -47,7 +47,7 @@ const test = base.extend<{ world: NotifyWorld }>({
 					SMTP_HOST: '127.0.0.1',
 					SMTP_PORT: String(smtp.port),
 					SMTP_SECURE: 'false',
-					SMTP_FROM: 'einvault-test@example.com',
+					SMTP_FROM: 'herp-test@example.com',
 					NTFY_URL: ntfy.url
 				}
 			});
@@ -304,10 +304,10 @@ base('notifications card describes push when only ntfy is enabled', async ({ pag
 	try {
 		await login(page, server.baseURL, SEED.member.username);
 		await page.goto(server.baseURL + '/settings');
-		await expect(page.getByText('Get push notifications from EinVault')).toBeVisible({
+		await expect(page.getByText('Get push notifications from Herp')).toBeVisible({
 			timeout: 8_000
 		});
-		await expect(page.getByText('Get emails from EinVault')).toHaveCount(0);
+		await expect(page.getByText('Get emails from Herp')).toHaveCount(0);
 		// The ntfy topic field is present (proves we're looking at the right card).
 		await expect(page.getByLabel('ntfy topic')).toBeVisible({ timeout: 8_000 });
 	} finally {

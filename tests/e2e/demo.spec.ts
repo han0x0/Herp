@@ -23,7 +23,7 @@ const test = base.extend<{ world: DemoWorld }>({
 		// refreshDemoContent in hooks.server.ts. No createSeededDb here.
 		fs.rmSync(dir, { recursive: true, force: true });
 		fs.mkdirSync(dir, { recursive: true });
-		const dbPath = path.join(dir, 'einvault.db');
+		const dbPath = path.join(dir, 'herp.db');
 
 		const appPort = await getFreePort();
 		let server: AppServer;
@@ -264,7 +264,7 @@ test('caretaker sees assigned companion on shift', async ({ world, page }) => {
 	await expect(page).toHaveURL(/\/care/, { timeout: 10_000 });
 
 	// The seeded caretaker (Faye) is assigned to Ein with an active shift.
-	// Use role=heading to avoid matching 'EinVault' in the nav.
+	// Use role=heading to avoid matching 'Herp' in the nav.
 	await expect(
 		page.getByRole('heading', { name: SEED.companions.ein.name, exact: true })
 	).toBeVisible({ timeout: 10_000 });
@@ -380,9 +380,9 @@ test('theme switch to dark works in demo without read-only toast', async ({ worl
 		}
 	);
 
-	// The einvault_theme cookie should be set to dark
+	// The herp_theme cookie should be set to dark
 	const cookies = await page.context().cookies();
-	const themeCookie = cookies.find((c) => c.name === 'einvault_theme');
+	const themeCookie = cookies.find((c) => c.name === 'herp_theme');
 	expect(themeCookie).toBeDefined();
 	expect(themeCookie?.value).toBe('dark');
 
@@ -432,7 +432,7 @@ test('password login POST does not create a session', async ({ world, page }) =>
 	//
 	// Strategy: start with a clean browser context (no cookies), post the form
 	// via page navigation, and verify we are NOT sent into the app interior.
-	// If demo mode is working, the form POST must not create an einvault_session.
+	// If demo mode is working, the form POST must not create an herp_session.
 	const freshCtx = await page.context().browser()!.newContext({ baseURL: world.server.baseURL });
 	const freshPage = await freshCtx.newPage();
 
@@ -464,7 +464,7 @@ test('password login POST does not create a session', async ({ world, page }) =>
 
 		// Check that no session cookie was set in the browser context.
 		const cookies = await freshCtx.cookies(world.server.baseURL);
-		const sessionCookie = cookies.find((c) => c.name === 'einvault_session');
+		const sessionCookie = cookies.find((c) => c.name === 'herp_session');
 		expect(sessionCookie).toBeUndefined();
 	} finally {
 		await freshCtx.close();

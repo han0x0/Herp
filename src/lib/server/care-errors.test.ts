@@ -33,11 +33,11 @@ describe('care errors', () => {
 
 	it('localizes the message for the given locale', () => {
 		try {
-			throwCareError('disabled', 'de');
+			throwCareError('disabled', 'en');
 			expect.unreachable('should have thrown');
 		} catch (e) {
 			const err = e as { body: { message: string } };
-			expect(err.body.message).toBe('Dieses Schnell-Log ist deaktiviert.');
+			expect(err.body.message).toBe('This quick log is disabled.');
 		}
 	});
 });

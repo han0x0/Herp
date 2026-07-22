@@ -37,7 +37,7 @@ test('dashboard shows the first-run welcome at zero companions', async ({ pristi
 	await page.getByRole('button', { name: 'Create Admin Account' }).click();
 	// After setup the admin is logged in; navigate to / (0 companions, no redirect).
 	await page.goto(pristine.baseURL + '/');
-	await expect(page.getByText('Welcome to EinVault')).toBeVisible({ timeout: 10_000 });
+	await expect(page.getByText('Welcome to Herp')).toBeVisible({ timeout: 10_000 });
 	await expect(
 		page.getByRole('link', { name: 'Add your first companion', exact: true })
 	).toBeVisible();

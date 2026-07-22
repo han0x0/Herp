@@ -12,11 +12,11 @@ export type Role = 'admin' | 'member' | 'caretaker';
 
 const MIGRATIONS_FOLDER = path.resolve(import.meta.dirname, '../../drizzle');
 
-/** Creates dir, migrates a fresh DB at dir/einvault.db, seeds it, closes. */
+/** Creates dir, migrates a fresh DB at dir/herp.db, seeds it, closes. */
 export function createSeededDb(dir: string): string {
 	fs.rmSync(dir, { recursive: true, force: true });
 	fs.mkdirSync(dir, { recursive: true });
-	const dbPath = path.join(dir, 'einvault.db');
+	const dbPath = path.join(dir, 'herp.db');
 
 	const sqlite = new Database(dbPath);
 	sqlite.pragma('journal_mode = WAL');
@@ -54,7 +54,7 @@ export function createSeededDbNoShift(dir: string): string {
 export function createEmptyDb(dir: string): string {
 	fs.rmSync(dir, { recursive: true, force: true });
 	fs.mkdirSync(dir, { recursive: true });
-	const dbPath = path.join(dir, 'einvault.db');
+	const dbPath = path.join(dir, 'herp.db');
 	const sqlite = new Database(dbPath);
 	sqlite.pragma('journal_mode = WAL');
 	sqlite.pragma('foreign_keys = ON');

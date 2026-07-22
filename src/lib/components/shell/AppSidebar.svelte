@@ -132,7 +132,7 @@
 	<!-- Brand / workspace header -->
 	<a
 		href="/"
-		aria-label={t(locale, 'aria.einvaultHome')}
+		aria-label={t(locale, 'aria.herpHome')}
 		class="group flex items-center gap-3 px-4 py-5 shrink-0 border-b border-border/60"
 	>
 		<div
@@ -144,7 +144,11 @@
 		</div>
 		<div class="min-w-0">
 			<p class="font-display font-bold text-base text-foreground leading-tight">Herp</p>
-			<p class="text-[10px] font-medium text-muted-foreground uppercase tracking-wider leading-tight mt-0.5">{t(locale, 'layout.workspaceTagline')}</p>
+			<p
+				class="text-[10px] font-medium text-muted-foreground uppercase tracking-wider leading-tight mt-0.5"
+			>
+				{t(locale, 'layout.workspaceTagline')}
+			</p>
 		</div>
 	</a>
 
@@ -324,7 +328,10 @@
 						? 'text-primary bg-primary/10'
 						: 'text-muted-foreground hover:text-foreground hover:bg-accent'}"
 				>
-					{#if isActive}<span class="absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-full bg-primary" aria-hidden="true"></span>{/if}
+					{#if isActive}<span
+							class="absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-full bg-primary"
+							aria-hidden="true"
+						></span>{/if}
 					<NavIcon class="h-4 w-4 shrink-0 {isActive ? 'text-primary' : 'text-muted-foreground'}" />
 					{item.label}
 				</a>

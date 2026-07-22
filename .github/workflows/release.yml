@@ -77,7 +77,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@80c7e94dd9b9319bd5eb7a0e0fe9291e23a2a2e9 # v6.1.0
         with:
-          images: ghcr.io/${{ github.repository_owner }}/einvault
+          images: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}
           tags: |
             type=sha,prefix=sha-
 
@@ -88,7 +88,7 @@ jobs:
           context: .
           platforms: ${{ matrix.platform }}
           labels: ${{ steps.meta.outputs.labels }}
-          outputs: type=image,name=ghcr.io/${{ github.repository_owner }}/einvault,push-by-digest=true,name-canonical=true,push=true
+          outputs: type=image,name=ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }},push-by-digest=true,name-canonical=true,push=true
           cache-from: type=gha,scope=build-${{ matrix.arch }}
           cache-to: type=gha,mode=max,scope=build-${{ matrix.arch }}
           provenance: mode=max
@@ -101,7 +101,7 @@ jobs:
 
       - name: Scan image with Trivy
         env:
-          IMAGE: ghcr.io/${{ github.repository_owner }}/einvault@${{ steps.build.outputs.digest }}
+          IMAGE: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}@${{ steps.build.outputs.digest }}
         run: |
           trivy image \
             --platform ${{ matrix.platform }} \
@@ -155,7 +155,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@80c7e94dd9b9319bd5eb7a0e0fe9291e23a2a2e9 # v6.1.0
         with:
-          images: ghcr.io/${{ github.repository_owner }}/einvault
+          images: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}
           tags: |
             type=sha,prefix=sha-
             type=ref,event=branch
@@ -164,7 +164,7 @@ jobs:
         id: manifest
         working-directory: /tmp/digests
         env:
-          IMAGE: ghcr.io/${{ github.repository_owner }}/einvault
+          IMAGE: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}
           TAGS: ${{ steps.meta.outputs.tags }}
         run: |
           set -euo pipefail
@@ -178,7 +178,7 @@ jobs:
       - name: Attest build provenance
         uses: actions/attest-build-provenance@0f67c3f4856b2e3261c31976d6725780e5e4c373 # v4.1.1
         with:
-          subject-name: ghcr.io/${{ github.repository_owner }}/einvault
+          subject-name: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}
           subject-digest: ${{ steps.manifest.outputs.digest }}
           push-to-registry: true
 
@@ -210,7 +210,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@80c7e94dd9b9319bd5eb7a0e0fe9291e23a2a2e9 # v6.1.0
         with:
-          images: ghcr.io/${{ github.repository_owner }}/einvault
+          images: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
@@ -218,7 +218,7 @@ jobs:
       - name: Promote release tags
         env:
           GH_TOKEN: ${{ github.token }}
-          IMAGE: ghcr.io/${{ github.repository_owner }}/einvault
+          IMAGE: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}
           TAGS: ${{ steps.meta.outputs.tags }}
           REPO: ${{ github.repository }}
           DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
