@@ -132,7 +132,7 @@
 	<!-- Brand -->
 	<a
 		href="/"
-		aria-label={t(locale, 'aria.herpHome')}
+		aria-label={t(locale, 'aria.einvaultHome')}
 		class="group flex items-center gap-2.5 px-4 py-5 shrink-0"
 	>
 		<div

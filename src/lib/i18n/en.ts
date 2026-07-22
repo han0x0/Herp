@@ -535,7 +535,9 @@ const messages = {
 	'overview.greeting': 'Hello, {name}',
 	'overview.needsAttention': 'Needs attention',
 	'overview.allCaughtUp': 'All caught up',
-	'overview.heading.companions': 'Your companions',
+		'overview.speciesFilter.label': 'Filter companions by species',
+	'overview.speciesFilter.all': 'All',
+'overview.heading.companions': 'Your companions',
 	'overview.companions.addStart': 'Start a new vault',
 	'overview.firstRun.title': 'Welcome to EinVault',
 	'overview.firstRun.body':

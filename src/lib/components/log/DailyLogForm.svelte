@@ -9,9 +9,12 @@
 	import { activityTypeOptions } from '$lib/i18n/labels';
 	import SubtypePills from '$lib/components/log/SubtypePills.svelte';
 
+	type Species = 'dog' | 'cat' | 'mouse' | 'reptile';
+
 	interface CompanionOption {
 		id: string;
 		name: string;
+		species?: Species | null;
 	}
 
 	// primaryCompanion set → it is the implicit target (route param) and the other
@@ -25,15 +28,27 @@
 		form
 	}: {
 		companions?: CompanionOption[];
-		primaryCompanion?: CompanionOption | null;
+		primaryCompanion?: (CompanionOption & { species?: Species | null }) | null;
 		initialType?: string;
 		action?: string;
 		form: { success?: boolean; error?: string } | null;
 	} = $props();
 
 	const locale = getLocale();
-	const EVENT_TYPES = activityTypeOptions(locale);
-	const TYPE_VALUES = EVENT_TYPES.map((t) => t.value);
+	const baseEventTypes = activityTypeOptions(locale);
+	let companionSpecies = $derived(primaryCompanion?.species ?? null);
+	let orderedEventTypes = $derived.by(() => {
+		if (!companionSpecies) return baseEventTypes;
+		const priority: Record<Species, string[]> = {
+			dog:     ['walk', 'meal', 'bathroom', 'treat', 'play', 'grooming', 'reptileCare', 'other'],
+			cat:     ['meal', 'bathroom', 'play', 'grooming', 'treat', 'walk', 'reptileCare', 'other'],
+			mouse:   ['meal', 'play', 'treat', 'walk', 'grooming', 'bathroom', 'reptileCare', 'other'],
+			reptile: ['reptileCare', 'meal', 'treat', 'play', 'walk', 'grooming', 'bathroom', 'other']
+		};
+		const order = priority[companionSpecies];
+		return [...baseEventTypes].sort((a, b) => order.indexOf(a.value) - order.indexOf(b.value));
+	});
+	let TYPE_VALUES = $derived(orderedEventTypes.map((t) => t.value));
 
 	// Intentionally captures the initial prop value: the type pre-selection comes
 	// from the ?type= query param on first render and the pills own it afterwards.
@@ -49,7 +64,7 @@
 	let selectedAdditionalIds = $state<string[]>([]);
 	let selectedCompanionIds = $state<string[]>([]);
 	let hasDuration = $derived(
-		EVENT_TYPES.find((t) => t.value === selectedType)?.hasDuration ?? false
+		orderedEventTypes.find((t) => t.value === selectedType)?.hasDuration ?? false
 	);
 
 	function defaultLoggedAt() {
@@ -58,9 +73,9 @@
 		return new Date(now.getTime() - offset).toISOString().slice(0, 16);
 	}
 
-	const TYPE_PILL_LABELS = Object.fromEntries(
-		EVENT_TYPES.map((t) => [t.value, `${t.icon} ${t.label}`])
-	);
+	let TYPE_PILL_LABELS = $derived(Object.fromEntries(
+		orderedEventTypes.map((t) => [t.value, `${t.icon} ${t.label}`])
+	));
 </script>
 
 {#if form?.success}
@@ -104,7 +119,7 @@
 			>{t(locale, 'page.log.activityLabel')}</legend
 		>
 		<div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
-			{#each EVENT_TYPES as t (t.value)}
+			{#each orderedEventTypes as t (t.value)}
 				<label class="cursor-pointer">
 					<input
 						type="radio"

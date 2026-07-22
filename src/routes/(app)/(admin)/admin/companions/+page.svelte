@@ -6,6 +6,7 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Alert, AlertDescription } from '$lib/components/ui/alert/index.js';
 	import CompanionAvatar from '$lib/components/CompanionAvatar.svelte';
+	import CompanionSpeciesBadge from '$lib/components/CompanionSpeciesBadge.svelte';
 	import EmptyState from '$lib/components/EmptyState.svelte';
 	import { PawPrint, RotateCcw, Pencil } from '@lucide/svelte';
 	import PageHeader from '$lib/components/PageHeader.svelte';
@@ -74,6 +75,9 @@
 					<div class="flex-1 min-w-0">
 						<div class="flex flex-wrap items-center gap-x-2 gap-y-1">
 							<span class="font-medium text-foreground">{companion.name}</span>
+							{#if companion.species}
+								<CompanionSpeciesBadge species={companion.species} size="sm" />
+							{/if}
 							{#if companion.breed}
 								<Badge variant="secondary">{companion.breed}</Badge>
 							{/if}

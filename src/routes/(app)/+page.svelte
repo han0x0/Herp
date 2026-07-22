@@ -14,6 +14,7 @@
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { renderMarkdown } from '$lib/markdown';
 	import CompanionAvatar from '$lib/components/CompanionAvatar.svelte';
+	import CompanionSpeciesBadge from '$lib/components/CompanionSpeciesBadge.svelte';
 	import LocalTime from '$lib/components/LocalTime.svelte';
 	import { localDateISO } from '$lib/date';
 	import { createPendingDismissals } from '$lib/pendingDismiss.svelte';
@@ -247,6 +248,22 @@
 		}
 		if (e.key === 'Escape') closeReminderDetail();
 	}
+
+	// Species filter for companion cards
+	type SpeciesFilter = 'all' | 'dog' | 'cat' | 'mouse' | 'reptile';
+	let speciesFilter = $state<SpeciesFilter>('all');
+	let filteredCompanions = $derived(
+		speciesFilter === 'all'
+			? data.companions
+			: data.companions.filter((c) => c.species === speciesFilter)
+	);
+	const SPECIES_FILTERS: Array<{ value: SpeciesFilter; key: import('$lib/i18n').MessageKey; emoji: string }> = [
+		{ value: 'all',     key: 'overview.speciesFilter.all',     emoji: '🐾' },
+		{ value: 'dog',     key: 'enum.species.dog',               emoji: '🐕' },
+		{ value: 'cat',     key: 'enum.species.cat',               emoji: '🐈' },
+		{ value: 'mouse',   key: 'enum.species.mouse',             emoji: '🐭' },
+		{ value: 'reptile', key: 'enum.species.reptile',           emoji: '🦎' }
+	];
 </script>
 
 <svelte:head>
@@ -475,8 +492,29 @@
 				{t(locale, 'overview.heading.companions')}
 			</h2>
 
+			
+			<!-- Species filter chips -->
+			<div class="flex flex-wrap gap-1.5 mb-3" role="group" aria-label={t(locale, 'overview.speciesFilter.label')}>
+				{#each SPECIES_FILTERS as filter (filter.value)}
+					{@const count = filter.value === 'all' ? data.companions.length : data.companions.filter((c) => c.species === filter.value).length}
+					<button
+						type="button"
+						onclick={() => (speciesFilter = filter.value)}
+						aria-pressed={speciesFilter === filter.value}
+						disabled={filter.value !== 'all' && count === 0}
+						class="inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-all {speciesFilter === filter.value ? 'bg-primary text-primary-foreground border-primary shadow-sm' : 'bg-card text-foreground border-border hover:border-primary/40 disabled:opacity-40 disabled:cursor-not-allowed'}"
+					>
+						<span aria-hidden="true">{filter.emoji}</span>
+						<span>{t(locale, filter.key)}</span>
+						{#if count > 0}
+							<span class="ml-1 text-[10px] opacity-70">{count}</span>
+						{/if}
+					</button>
+				{/each}
+			</div>
+
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-				{#each data.companions as companion (companion.id)}
+				{#each filteredCompanions as companion (companion.id)}
 					{@const age = companionAge(companion.dob)}
 					{@const compReminders = remindersByCompanion[companion.id] ?? []}
 					{@const status = careStatus(
@@ -514,6 +552,7 @@
 							/>
 							<div class="min-w-0 flex-1">
 								<p class="font-semibold text-foreground truncate">{companion.name}</p>
+								<CompanionSpeciesBadge species={companion.species} size="sm" />
 								{#if companion.breed || age}
 									<p class="text-xs text-muted-foreground truncate">
 										{[companion.breed, age].filter(Boolean).join(' · ')}

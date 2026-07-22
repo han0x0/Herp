@@ -2,6 +2,7 @@
 	import type { PageData, ActionData } from './$types';
 	import QuickLogButtons from '$lib/components/log/QuickLogButtons.svelte';
 	import CompanionAvatar from '$lib/components/CompanionAvatar.svelte';
+	import CompanionSpeciesBadge from '$lib/components/CompanionSpeciesBadge.svelte';
 	import WeightSparkline from '$lib/components/WeightSparkline.svelte';
 	import LocalTime from '$lib/components/LocalTime.svelte';
 	import ByLine from '$lib/components/ByLine.svelte';
@@ -544,6 +545,11 @@
 						<h1 class="font-display text-2xl font-bold text-foreground leading-tight">
 							{companion.name}
 						</h1>
+						{#if companion.species}
+							<div class="mt-1">
+								<CompanionSpeciesBadge species={companion.species} />
+							</div>
+						{/if}
 						{#if companion.isActive !== false}
 							<Button href="/companions/{companion.id}/edit" variant="soft" size="sm">
 								<Pencil class="h-3.5 w-3.5 mr-1.5" />

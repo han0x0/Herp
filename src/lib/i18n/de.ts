@@ -47,6 +47,19 @@ const messages: Record<keyof Messages, string> = {
 	'enum.activityType.play': 'Spielen',
 	'enum.activityType.grooming': 'Pflege',
 	'enum.activityType.other': 'Sonstiges',
+	'enum.activityType.reptileCare': 'Reptile Care',
+
+	'enum.activitySubtype.shed': 'Shed',
+	'enum.activitySubtype.temp_humidity': 'Temp / Humidity',
+	'enum.activitySubtype.refused_food': 'Refused food',
+	'enum.activitySubtype.soak': 'Soak',
+	'enum.activitySubtype.brumation': 'Brumation',
+
+	// Enum: Species
+	'enum.species.dog': 'Dog',
+	'enum.species.cat': 'Cat',
+	'enum.species.mouse': 'Mouse',
+	'enum.species.reptile': 'Reptile',
 
 	// Enum: Activity subtypes
 	'enum.activitySubtype.pee': 'Pipi',
@@ -463,6 +476,7 @@ const messages: Record<keyof Messages, string> = {
 
 	// Page: companion (shared form labels / placeholders)
 	'page.companion.labelName': 'Name',
+	'page.companion.labelSpecies': 'Species',
 	'page.companion.labelBreed': 'Rasse',
 	'page.companion.labelSex': 'Geschlecht',
 	'page.companion.labelDob': 'Geburtsdatum',
@@ -533,7 +547,9 @@ const messages: Record<keyof Messages, string> = {
 	'overview.greeting': 'Hallo, {name}',
 	'overview.needsAttention': 'Aufmerksamkeit erforderlich',
 	'overview.allCaughtUp': 'Alles erledigt',
-	'overview.heading.companions': 'Deine Begleiter',
+		'overview.speciesFilter.label': 'Filter companions by species',
+	'overview.speciesFilter.all': 'All',
+'overview.heading.companions': 'Deine Begleiter',
 	'overview.companions.addStart': 'Neues Tresor starten',
 	'overview.firstRun.title': 'Willkommen bei EinVault',
 	'overview.firstRun.body':

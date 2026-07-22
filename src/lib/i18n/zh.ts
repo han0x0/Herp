@@ -539,7 +539,9 @@ const messages = {
 	'overview.greeting': '你好,{name}',
 	'overview.needsAttention': '需要关注',
 	'overview.allCaughtUp': '一切正常',
-	'overview.heading.companions': '我的宠物',
+		'overview.speciesFilter.label': '按物种筛选宠物',
+	'overview.speciesFilter.all': '全部',
+'overview.heading.companions': '我的宠物',
 	'overview.companions.addStart': '添加宠物',
 	'overview.firstRun.title': '欢迎使用 Herp',
 	'overview.firstRun.body':

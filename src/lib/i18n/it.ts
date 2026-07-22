@@ -47,6 +47,19 @@ const messages: Record<keyof Messages, string> = {
 	'enum.activityType.play': 'Gioco',
 	'enum.activityType.grooming': 'Toelettatura',
 	'enum.activityType.other': 'Altro',
+	'enum.activityType.reptileCare': 'Reptile Care',
+
+	'enum.activitySubtype.shed': 'Shed',
+	'enum.activitySubtype.temp_humidity': 'Temp / Humidity',
+	'enum.activitySubtype.refused_food': 'Refused food',
+	'enum.activitySubtype.soak': 'Soak',
+	'enum.activitySubtype.brumation': 'Brumation',
+
+	// Enum: Species
+	'enum.species.dog': 'Dog',
+	'enum.species.cat': 'Cat',
+	'enum.species.mouse': 'Mouse',
+	'enum.species.reptile': 'Reptile',
 
 	// Enum: Activity subtypes
 	'enum.activitySubtype.pee': 'Pipì',
@@ -459,6 +472,7 @@ const messages: Record<keyof Messages, string> = {
 
 	// Page: companion (shared form labels / placeholders)
 	'page.companion.labelName': 'Nome',
+	'page.companion.labelSpecies': 'Species',
 	'page.companion.labelBreed': 'Razza',
 	'page.companion.labelSex': 'Sesso',
 	'page.companion.labelDob': 'Data di nascita',
@@ -529,7 +543,9 @@ const messages: Record<keyof Messages, string> = {
 	'overview.greeting': 'Ciao, {name}',
 	'overview.needsAttention': 'Richiede attenzione',
 	'overview.allCaughtUp': 'Tutto in ordine',
-	'overview.heading.companions': 'I tuoi compagni',
+		'overview.speciesFilter.label': 'Filter companions by species',
+	'overview.speciesFilter.all': 'All',
+'overview.heading.companions': 'I tuoi compagni',
 	'overview.companions.addStart': 'Inizia un nuovo registro',
 	'overview.firstRun.title': 'Benvenuto su EinVault',
 	'overview.firstRun.body':
