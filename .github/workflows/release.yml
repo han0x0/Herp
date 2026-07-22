@@ -80,6 +80,12 @@ jobs:
           images: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}
           tags: |
             type=sha,prefix=sha-
+            # Also stamp `latest` when building from the default branch so
+            # a downstream `docker compose pull` against `image: ...:latest`
+            # gets the current build. Tag pushes use the `promote` job
+            # instead, which only writes semver tags onto the already-built
+            # image (it never rebuilds).
+            type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build and push by digest
         id: build
