@@ -11,23 +11,11 @@
 	import { PawPrint, RotateCcw, Pencil } from '@lucide/svelte';
 	import PageHeader from '$lib/components/PageHeader.svelte';
 	import { t, getLocale } from '$lib/i18n';
+	import { formatAge } from '$lib/i18n/labels';
 
 	const locale = getLocale();
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
-
-	function ageFromDob(dob: string | null): string | null {
-		if (!dob) return null;
-		const birth = new Date(dob);
-		if (isNaN(birth.getTime())) return null;
-		const now = new Date();
-		const years = now.getFullYear() - birth.getFullYear();
-		const months = now.getMonth() - birth.getMonth();
-		const total = years * 12 + months;
-		if (total < 12) return `${total}mo`;
-		const y = Math.floor(total / 12);
-		return `${y}y`;
-	}
 </script>
 
 <svelte:head>
@@ -64,7 +52,7 @@
 			</EmptyState>
 		{:else}
 			{#each data.companions as companion (companion.id)}
-				{@const age = ageFromDob(companion.dob)}
+				{@const age = formatAge(locale, companion.dob)}
 				<div class="px-6 py-4 flex items-center gap-3">
 					<CompanionAvatar
 						companionId={companion.id}

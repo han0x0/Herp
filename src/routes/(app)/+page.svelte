@@ -20,6 +20,7 @@
 	import { createPendingDismissals } from '$lib/pendingDismiss.svelte';
 	import { registerDismissForm } from '$lib/actions/registerDismissForm';
 	import { clearSubmittingFlag } from '$lib/clearSubmittingFlag';
+	import { formatAge } from '$lib/i18n/labels';
 	import {
 		REMINDER_ICONS,
 		MOOD_ICONS,
@@ -148,22 +149,6 @@
 		// The server already rejects far-future timestamps at write time.
 		return items.sort((a, b) => b.ts.getTime() - a.ts.getTime()).slice(0, 8);
 	});
-
-	// Age from DOB string "YYYY-MM-DD"
-	function companionAge(dob: string | null | undefined): string | null {
-		if (!dob) return null;
-		const [y, m, d] = dob.split('-').map(Number);
-		const born = new Date(y, m - 1, d);
-		const now = new Date();
-		const years = now.getFullYear() - born.getFullYear();
-		const adjusted =
-			now < new Date(now.getFullYear(), born.getMonth(), born.getDate()) ? years - 1 : years;
-		if (adjusted < 1) {
-			const months = Math.floor((now.getTime() - born.getTime()) / (30 * 24 * 60 * 60 * 1000));
-			return `${months}mo`;
-		}
-		return `${adjusted}y`;
-	}
 
 	function urgencyLabel(urgency: Urgency): string {
 		if (urgency === 'overdue') return t(locale, 'page.dashboard.caretaker.reminderOverdue');
@@ -528,7 +513,7 @@
 
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
 				{#each filteredCompanions as companion (companion.id)}
-					{@const age = companionAge(companion.dob)}
+					{@const age = formatAge(locale, companion.dob)}
 					{@const compReminders = remindersByCompanion[companion.id] ?? []}
 					{@const status = careStatus(
 						compReminders.map((r) => ({

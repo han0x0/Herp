@@ -10,7 +10,13 @@
 	import { enhance } from '$app/forms';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { renderMarkdown, stripMarkdown } from '$lib/markdown';
-	import { activityTypeOptions, activityDisplayIcon, activityDisplayLabel } from '$lib/i18n/labels';
+	import {
+		activityTypeOptions,
+		activityDisplayIcon,
+		activityDisplayLabel,
+		formatAge,
+		sexLabel
+	} from '$lib/i18n/labels';
 	import { tick } from 'svelte';
 	import { t, getLocale } from '$lib/i18n';
 	import { createPendingDismissals } from '$lib/pendingDismiss.svelte';
@@ -27,18 +33,6 @@
 	const quickLogTypes = activityTypeOptions(locale).filter((opt) =>
 		['walk', 'meal', 'bathroom'].includes(opt.value)
 	);
-
-	function age(dob: string | null): string {
-		if (!dob) return 'Unknown age';
-		const birth = new Date(dob);
-		const now = new Date();
-		const months =
-			(now.getFullYear() - birth.getFullYear()) * 12 + now.getMonth() - birth.getMonth();
-		if (months < 12) return `${months}mo old`;
-		const y = Math.floor(months / 12);
-		const m = months % 12;
-		return m > 0 ? `${y}y ${m}mo` : `${y}y old`;
-	}
 
 	// Avatar lightbox
 	let avatarLightboxOpen = $state(false);
@@ -285,9 +279,13 @@
 						{companion.name}
 					</h1>
 					<p class="text-sm text-muted-foreground mt-0.5">
-						{companion.breed ?? t(locale, 'page.dashboard.mixedBreed')} · {age(
-							companion.dob
-						)}{companion.sex ? ` · ${companion.sex}` : ''}
+						{[
+							companion.breed ?? t(locale, 'page.dashboard.mixedBreed'),
+							formatAge(locale, companion.dob),
+							companion.sex ? sexLabel(locale, companion.sex) : null
+						]
+							.filter(Boolean)
+							.join(' · ')}
 					</p>
 					{#if companion.microchip}
 						<p class="text-xs text-muted-foreground mt-1">

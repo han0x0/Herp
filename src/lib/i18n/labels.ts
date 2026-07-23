@@ -178,3 +178,23 @@ export function roleOptions(locale: Locale) {
 		label: roleLabel(locale, v)
 	}));
 }
+/** Format an age string from a DOB (YYYY-MM-DD) using locale-aware units. */
+export function formatAge(locale: Locale, dob: string | null | undefined): string | null {
+	if (!dob) return null;
+	const parts = dob.split('-').map(Number);
+	const y = parts[0];
+	const m = parts[1] ?? 1;
+	const d = parts[2] ?? 1;
+	const born = new Date(y, m - 1, d);
+	if (isNaN(born.getTime())) return null;
+	const now = new Date();
+	const totalMonths =
+		(now.getFullYear() - born.getFullYear()) * 12 + (now.getMonth() - born.getMonth());
+	const adjusted = now.getDate() < born.getDate() ? totalMonths - 1 : totalMonths;
+	if (adjusted < 0) return null;
+	if (adjusted < 12) return t(locale, 'companion.age.months', { n: adjusted });
+	const yy = Math.floor(adjusted / 12);
+	const mm = adjusted % 12;
+	if (mm === 0) return t(locale, 'companion.age.years', { y: yy });
+	return t(locale, 'companion.age.yearsMonths', { y: yy, m: mm });
+}

@@ -1142,9 +1142,15 @@ const messages = {
 	'demo.roleMember': 'Member',
 	'demo.roleCaretaker': 'Caretaker',
 	'demo.sourceLink': 'Source',
-	'demo.writeBlocked': "This demo is read-only — your change wasn't saved."
+	'demo.writeBlocked': "This demo is read-only — your change wasn't saved.",
 
 	// Meta
+
+	// Companion: age formatting (used by companion card subtitles)
+	'companion.age.unknown': 'Unknown age',
+	'companion.age.months': '{n}mo',
+	'companion.age.yearsMonths': '{y}y {m}mo',
+	'companion.age.years': '{y}y'
 } as const;
 
 export type Messages = typeof messages;

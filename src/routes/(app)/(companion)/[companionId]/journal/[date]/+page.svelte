@@ -614,7 +614,7 @@
 									class="h-3 w-3 transition-transform group-open:rotate-90"
 									aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg
 								>
-								Markdown supported
+								{t(locale, 'component.markdown.markdownSupported')}
 							</summary>
 							<div
 								class="absolute right-0 top-full z-20 mt-2 w-72 rounded-md border border-border bg-popover px-3 py-2.5 text-xs space-y-1.5 shadow-lg"

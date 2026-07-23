@@ -289,15 +289,14 @@ const messages = {
 	'page.settings.languageDescription': '界面显示语言',
 	'page.settings.reminderUndoCard': '提醒撤销窗口',
 	'page.settings.reminderUndoDescription':
-		'How long to wait before a dismissed Reminder is committed. Use Off to commit immediately.',
+		'关闭提醒后,等待多久才视为已确认。选择「关闭」可立即确认。',
 	'page.settings.reminderUndoLabel': '撤销窗口(秒)',
 	'page.settings.reminderUndoDefault': '默认 ({seconds} 秒)',
 	'page.settings.reminderUndoOff': '关闭',
 	'page.settings.reminderUndoSeconds': '{seconds} 秒',
 	'page.settings.reminderUndoUpdated': '撤销窗口已更新',
 	'page.settings.defaultRecurrenceCard': '默认循环单位',
-	'page.settings.defaultRecurrenceDescription':
-		'Which recurrence unit appears first when you create a new reminder.',
+	'page.settings.defaultRecurrenceDescription': '新建提醒时默认显示的循环单位。',
 	'page.settings.defaultRecurrenceLabel': '默认单位',
 	'page.settings.defaultRecurrenceSystem': '系统默认 ({unit})',
 	'page.settings.defaultRecurrenceUpdated': '默认循环单位已更新',
@@ -330,8 +329,7 @@ const messages = {
 	'page.settings.backupCodesSaved': '已确认保存',
 	'page.settings.regenBackup': '重新生成',
 	'page.settings.disable2fa': '关闭双重认证',
-	'page.settings.twofaUnavailable':
-		'Two-factor authentication is unavailable. Set TWOFA_ENC_KEY to enable it.',
+	'page.settings.twofaUnavailable': '两步验证暂未启用。请设置 TWOFA_ENC_KEY 环境变量来开启。',
 	'page.settings.twofaUpdated': '双重认证已更新',
 	'page.settings.reenrollNote': '关闭后再次启用需要重新扫描二维码',
 	'page.settings.testEmail': '发送测试邮件',
@@ -345,8 +343,7 @@ const messages = {
 
 	// Page: settings (calendar feed)
 	'settings.calendar.title': '日历订阅',
-	'settings.calendar.description':
-		'Subscribe to your health events, reminders, and shifts in any calendar app.',
+	'settings.calendar.description': '可在任意日历应用中订阅你的健康事件、提醒和值班安排。',
 	'settings.calendar.enable': '启用',
 	'settings.calendar.regenerate': '重新生成',
 	'settings.calendar.disable': '关闭',
@@ -356,7 +353,7 @@ const messages = {
 		"Copy this URL now. For your security it won't be shown again; regenerate if you lose it.",
 	'settings.calendar.enabled': '已启用',
 	'settings.calendar.help':
-		'Works with Apple Calendar, Google Calendar, Thunderbird, and Home Assistant (Remote Calendar). The feed updates when your calendar app refreshes.',
+		'兼容 Apple 日历、Google 日历、Thunderbird 以及 Home Assistant(远程日历)。当日历应用刷新时,订阅源会同步更新。',
 
 	// Errors: OIDC
 	'error.oidc.notProvisioned':
@@ -933,9 +930,9 @@ const messages = {
 	'quickLog.execute.logNow': '立即记录',
 	'settings.apiTokens.title': 'API Token',
 	'settings.apiTokens.description':
-		'Create tokens for smart buttons, scripts, and other devices to log events through the API. Send them as an Authorization: Bearer header.',
+		'为智能按钮、脚本等设备创建 API Token,用于通过接口记录事件。请求时请将 Token 放在 Authorization: Bearer 请求头中。',
 	'settings.apiTokens.accessRevoked':
-		'An administrator has revoked your API access. Existing tokens stop working until access is granted again.',
+		'管理员已撤销你的 API 访问权限。已有 Token 在再次授权前将无法使用。',
 	'settings.apiTokens.newToken': '新建 Token',
 	'settings.apiTokens.tokenFieldLabel': 'Token',
 	'settings.apiTokens.nameLabel': '名称',
@@ -1143,9 +1140,15 @@ const messages = {
 	'demo.roleMember': '成员',
 	'demo.roleCaretaker': '照护者',
 	'demo.sourceLink': '查看源代码',
-	'demo.writeBlocked': '演示模式下无法写入数据'
+	'demo.writeBlocked': '演示模式下无法写入数据',
 
 	// Meta
+
+	// Companion: age formatting (used by companion card subtitles)
+	'companion.age.unknown': '年龄未知',
+	'companion.age.months': '{n} 个月',
+	'companion.age.yearsMonths': '{y} 年 {m} 个月',
+	'companion.age.years': '{y} 年'
 } as const;
 
 export type Messages = typeof messages;
