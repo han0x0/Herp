@@ -1,0 +1,78 @@
+# herp — 1Panel 部署
+# https://github.com/han0x0/herp
+#
+# 1. 1Panel 默认会创建 1panel-network 外部网络(已存在则跳过)
+# 2. 在 1Panel 编排里设置 ORIGIN 改为你访问 herp 的实际地址
+# 3. 在 1Panel 文件里创建 ./data 目录(SQLite + 上传)
+# 4. 1Panel 编排面板里"部署"
+# 5. 首次访问会跳到 /setup 让你建管理员账号
+
+networks:
+  1panel-network:
+    external: true
+
+services:
+  herp:
+    image: ghcr.io/han0x0/herp:latest
+    container_name: ${CONTAINER_NAME:-herp}
+    restart: always
+
+    # 1Panel 通常通过面板分配外部端口。容器内 3000,宿主机 ${PANEL_APP_PORT_HTTP:-3030}
+    ports:
+      - '${PANEL_APP_PORT_HTTP:-3030}:3000'
+
+    volumes:
+      # SQLite 数据库 + 上传文件都落在这里
+      - ./data:/data
+
+    # 镜像里 node 用户的 uid/gid 是 1000;1Panel 通常也是这个 uid
+    user: '1000:1000'
+
+    environment:
+      # 必填:你访问 herp 的公网 URL,必须和实际地址完全一致(协议 + 域名 + 端口)
+      # 例: 域名访问: https://herp.example.com
+      #     1Panel IP + 端口: http://192.168.1.100:3030
+      # SvelteKit 用它做 CSRF 保护,配错会拒绝所有 form 提交。
+      ORIGIN: ${ORIGIN:-http://localhost:3030}
+
+      TZ: Asia/Shanghai
+      PORT: 3000
+      NODE_ENV: production
+      DATABASE_URL: /data/herp.db
+      UPLOAD_MAX_MB: ${UPLOAD_MAX_MB:-10}
+      VIDEO_MAX_MB: ${VIDEO_MAX_MB:-100}
+      MAX_DAILY_MEDIA: ${MAX_DAILY_MEDIA:-5}
+      MAX_DOCUMENTS_PER_COMPANION: ${MAX_DOCUMENTS_PER_COMPANION:-200}
+      REMINDER_UNDO_SECONDS: ${REMINDER_UNDO_SECONDS:-7}
+
+      # API 令牌 + 日历 feed(关掉可以减少攻击面;非公网部署建议关)
+      API_TOKENS_ENABLED: ${API_TOKENS_ENABLED:-true}
+      CALENDAR_FEED_ENABLED: ${CALENDAR_FEED_ENABLED:-true}
+      CALENDAR_FEED_HISTORY_DAYS: ${CALENDAR_FEED_HISTORY_DAYS:-90}
+
+      # 关闭 demo 模式
+      DEMO_MODE: 'false'
+
+      # 默认语言(可改 'en' / 'zh')
+      DEFAULT_LOCALE: ${DEFAULT_LOCALE:-zh}
+
+    networks:
+      - 1panel-network
+
+    healthcheck:
+      # 内部探针扫容器内 3000 端口的 /api/health 端点
+      test:
+        [
+          'CMD-SHELL',
+          'wget --no-verbose --tries=1 --spider http://127.0.0.1:3000/api/health || exit 1'
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '5m'
+        max-file: '1'
