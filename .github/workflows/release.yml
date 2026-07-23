@@ -167,6 +167,7 @@ jobs:
           tags: |
             type=sha,prefix=sha-
             type=ref,event=branch
+            type=raw,value=latest,enable=${{ github.event.repository.default_branch == github.ref_name }}
 
       - name: Create multi-arch manifest
         id: manifest

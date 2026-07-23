@@ -13,7 +13,7 @@ networks:
 
 services:
   herp:
-    image: ghcr.io/han0x0/herp:sha-27a1766 # TODO: revert to :latest after release.yml fix is deployed (issue: latest tag was missing because of broken enable={{is_default_branch}} expr)
+    image: ghcr.io/han0x0/herp:latest
     container_name: ${CONTAINER_NAME:-herp}
     restart: always
 
