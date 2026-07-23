@@ -85,7 +85,7 @@ jobs:
             # gets the current build. Tag pushes use the `promote` job
             # instead, which only writes semver tags onto the already-built
             # image (it never rebuilds).
-            type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=latest
 
       - name: Build and push by digest
         id: build
